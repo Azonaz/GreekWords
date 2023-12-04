@@ -1,0 +1,22 @@
+{
+  "vocabulary": {
+    "groups": [
+      {
+        "name": "Free time",
+        "words": [
+          {
+            "id": 1,
+            "gr": "ξυπνάω",
+            "en": "to wake up"
+          },
+          {
+            "id": 2,
+            "gr": "αρχίζω",
+            "en": "to start"
+          }
+        ]
+      }
+    ]
+  }
+}
+
