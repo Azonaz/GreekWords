@@ -12,11 +12,10 @@ class GreekWordViewController: UIViewController {
     
     private lazy var wordLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hello, World!"
         label.textColor = UIColor(resource: .blackDN)
         label.backgroundColor = UIColor(resource: .whiteDN)
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         label.layer.borderWidth = 3
         label.layer.borderColor = UIColor(resource: .blackDN).cgColor
         label.layer.cornerRadius = 16
@@ -37,45 +36,27 @@ class GreekWordViewController: UIViewController {
     
     private lazy var countLabel: UILabel = {
         let label = UILabel()
-        label.text = "1/10"
         label.textColor = UIColor(resource: .blackDN)
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var fisrtButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("First", for: .normal)
-        button.setTitleColor(UIColor(resource: .blackDN), for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(resource: .blackDN).cgColor
-        button.layer.cornerRadius = 12
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var fisrtButton: OptionButton = {
+        let button = OptionButton()
         return button
     }()
-    
-    private lazy var secondButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Second", for: .normal)
-        button.setTitleColor(UIColor(resource: .blackDN), for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(resource: .blackDN).cgColor
-        button.layer.cornerRadius = 12
-        button.translatesAutoresizingMaskIntoConstraints = false
+
+    private lazy var secondButton: OptionButton = {
+        let button = OptionButton()
         return button
     }()
-    
-    private lazy var thirdButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Third", for: .normal)
-        button.setTitleColor(UIColor(resource: .blackDN), for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(resource: .blackDN).cgColor
-        button.layer.cornerRadius = 12
-        button.translatesAutoresizingMaskIntoConstraints = false
+
+    private lazy var thirdButton: OptionButton = {
+        let button = OptionButton()
         return button
     }()
+
     
     private lazy var buttonsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [fisrtButton, secondButton, thirdButton])
@@ -120,17 +101,17 @@ class GreekWordViewController: UIViewController {
     }
     
     private func loadVocabulary() {
-            vocabulary = jsonService.getDataFromFile(name: "words")
-        }
+        vocabulary = jsonService.getDataFromFile(name: "words")
+    }
     
     private func getWords() {
         if let vocabularyData = vocabulary?.vocabulary {
-                words = vocabularyData.groups.flatMap { $0.words }
-                currentRoundWords = Array(words.shuffled().prefix(10))
-            }
-            print(currentRoundWords)
+            words = vocabularyData.groups.flatMap { $0.words }
+            currentRoundWords = Array(words.shuffled().prefix(10))
+        }
+        print(currentRoundWords)
     }
-
+    
     private func setRandomWord() {
         if let randomWord = currentRoundWords.popLast() {
             wordLabel.text = randomWord.gr
@@ -157,10 +138,10 @@ class GreekWordViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-            fisrtButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-            secondButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-            thirdButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        }
+        fisrtButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        secondButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        thirdButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    }
     
     private func blockButtons(){
         fisrtButton.isEnabled = false
@@ -186,31 +167,31 @@ class GreekWordViewController: UIViewController {
             if questionsAsked < 10 {
                 self.updateWord()
             }
-                else {
-                    self.showResultsAlert()
-                }
+            else {
+                self.showResultsAlert()
+            }
         }
     }
     
     private func showResultsAlert() {
-         let alert = UIAlertController(
-             title: "Результат",
-             message: "Ваш результат \(correctAnswers)/10.",
-             preferredStyle: .alert
-         )
-         let playAgainAction = UIAlertAction(title: "Сыграть еще", style: .default) { [weak self] _ in
-             self?.resetGame()
-         }
-         alert.addAction(playAgainAction)
-         present(alert, animated: true, completion: nil)
-     }
+        let alert = UIAlertController(
+            title: nil,
+            message: "Your result: \(correctAnswers)/10.",
+            preferredStyle: .alert
+        )
+        let playAgainAction = UIAlertAction(title: "Play more", style: .default) { [weak self] _ in
+            self?.resetGame()
+        }
+        alert.addAction(playAgainAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     private func resetGame() {
-          questionsAsked = 0
-          correctAnswers = 0
+        questionsAsked = 0
+        correctAnswers = 0
         getWords()
-          updateWord()
-      }
+        updateWord()
+    }
     
     @objc
     private func buttonTapped(_ sender: UIButton) {
