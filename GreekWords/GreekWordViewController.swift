@@ -5,7 +5,10 @@ class GreekWordViewController: UIViewController {
     private let jsonService = JsonService()
     private var vocabulary: Vocabulary?
     private var words: [Word] = []
+    private var currentRoundWords: [Word] = []
     private var correctWord: Word?
+    private var questionsAsked = 0
+    private var correctAnswers = 0
     
     private lazy var wordLabel: UILabel = {
         let label = UILabel()
@@ -28,6 +31,15 @@ class GreekWordViewController: UIViewController {
         label.backgroundColor = UIColor(resource: .whiteDN)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var countLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1/10"
+        label.textColor = UIColor(resource: .blackDN)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -86,6 +98,7 @@ class GreekWordViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(wordLabel)
+        view.addSubview(countLabel)
         view.addSubview(infoLabel)
         view.addSubview(buttonsStackView)
         NSLayoutConstraint.activate([
@@ -93,6 +106,8 @@ class GreekWordViewController: UIViewController {
             wordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             wordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             wordLabel.heightAnchor.constraint(equalToConstant: 150),
+            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             infoLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 100),
             infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
@@ -110,13 +125,14 @@ class GreekWordViewController: UIViewController {
     
     private func getWords() {
         if let vocabularyData = vocabulary?.vocabulary {
-            words = vocabularyData.groups.flatMap { $0.words }
-        }
-        print(words)
+                words = vocabularyData.groups.flatMap { $0.words }
+                currentRoundWords = Array(words.shuffled().prefix(10))
+            }
+            print(currentRoundWords)
     }
 
     private func setRandomWord() {
-        if let randomWord = words.randomElement() {
+        if let randomWord = currentRoundWords.popLast() {
             wordLabel.text = randomWord.gr
             correctWord = randomWord
         }
@@ -136,6 +152,8 @@ class GreekWordViewController: UIViewController {
     private func updateWord() {
         setRandomWord()
         setRandomValuesForWord()
+        questionsAsked += 1
+        countLabel.text = "\(questionsAsked)/10"
     }
     
     private func setupButtonActions() {
@@ -165,14 +183,42 @@ class GreekWordViewController: UIViewController {
             sender.layer.borderWidth = 1
             sender.layer.borderColor = UIColor(resource: .blackDN).cgColor
             self.unblockButtons()
-            self.updateWord()
+            if questionsAsked < 10 {
+                self.updateWord()
+            }
+                else {
+                    self.showResultsAlert()
+                }
         }
     }
     
-    @objc 
+    private func showResultsAlert() {
+         let alert = UIAlertController(
+             title: "Результат",
+             message: "Ваш результат \(correctAnswers)/10.",
+             preferredStyle: .alert
+         )
+         let playAgainAction = UIAlertAction(title: "Сыграть еще", style: .default) { [weak self] _ in
+             self?.resetGame()
+         }
+         alert.addAction(playAgainAction)
+         present(alert, animated: true, completion: nil)
+     }
+    
+    private func resetGame() {
+          questionsAsked = 0
+          correctAnswers = 0
+        getWords()
+          updateWord()
+      }
+    
+    @objc
     private func buttonTapped(_ sender: UIButton) {
         if let buttonText = sender.titleLabel?.text, let correctWord = correctWord?.en {
             let isCorrect = buttonText == correctWord
+            if isCorrect {
+                correctAnswers += 1
+            }
             updateButtonState(sender, isCorrect: isCorrect)
         }
     }
