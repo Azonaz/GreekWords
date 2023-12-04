@@ -14,7 +14,6 @@ struct VocabularyGroup: Codable {
 }
 
 struct Word: Codable {
-    let id: Int
     let gr: String
     let en: String
 }
