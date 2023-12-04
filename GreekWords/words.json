@@ -5,34 +5,181 @@
         "name": "Free time",
         "words": [
           {
-            "id": 1,
+            "gr": "παίζω",
+            "en": "to play"
+          },
+          {
+            "gr": "μπάσκετ",
+            "en": "basketball"
+          },
+          {
+            "gr": "βόλεϊ",
+            "en": "volleyball"
+          },
+          {
+            "gr": "τηλεόραση",
+            "en": "TV"
+          },
+          {
+            "gr": "football",
+            "en": "ποδόσφαιρο"
+          },
+          {
+            "gr": "αγώνας",
+            "en": "match"
+          },
+          {
+            "gr": "κινηματογράφος",
+            "en": "cinema"
+          },
+          {
+            "gr": "μουσείο",
+            "en": "museum"
+          },
+          {
+            "gr": "μουσική",
+            "en": "music"
+          },
+          {
+            "gr": "τραγουδάω",
+            "en": "to sing"
+          },
+          {
+            "gr": "ψώνια",
+            "en": "shopping"
+          },
+          {
+            "gr": "υπολογιστής",
+            "en": "computer"
+          },
+          {
+            "gr": "μαθαίνω",
+            "en": "to learn"
+          },
+          {
+            "gr": "ταξιδεύω",
+            "en": "to travel"
+          },
+          {
+            "gr": "βγαίνω έξω",
+            "en": "to go out"
+          },
+          {
+            "gr": "καφές",
+            "en": "coffee"
+          },
+          {
+            "gr": "ραδιόφωνο",
+            "en": "radio"
+          },
+          {
+            "gr": "ακούω",
+            "en": "to listen to"
+          },
+          {
+            "gr": "θάλασσα",
+            "en": "sea"
+          },
+          {
+            "gr": "πάρκο",
+            "en": "park"
+          },
+          {
+            "gr": "διαβάζω",
+            "en": "to read"
+          }
+        ]
+      },
+      {
+        "name": "My day",
+        "words": [
+          {
             "gr": "ξυπνάω",
             "en": "to wake up"
           },
           {
-            "id": 2,
-            "gr": "αρχίζω",
-            "en": "to start"
+            "gr": "πλένομαι",
+            "en": "to wash myself"
           },
           {
-            "id": 3,
-            "gr": "έρχομαι",
-            "en": "to come"
+            "gr": "δόντια",
+            "en": "teeth"
           },
           {
-            "id": 4,
-            "gr": "γίνομαι",
-            "en": "to become"
+            "gr": "βουρτσίζω",
+            "en": "to brush"
           },
           {
-            "id": 5,
-            "gr": "φαίνομαι",
-            "en": "to seem"
+            "gr": "χτενίζομαι",
+            "en": "to comb myself"
           },
           {
-            "id": 6,
-            "gr": "σταματάω",
-            "en": "to stop"
+            "gr": "ντους",
+            "en": "shower"
+          },
+          {
+            "gr": "μπάνιο",
+            "en": "bath"
+          },
+          {
+            "gr": "πρωινό",
+            "en": "breakfast"
+          },
+          {
+            "gr": "μεσημεριανό",
+            "en": "lunch"
+          },
+          {
+            "gr": "δείπνο",
+            "en": "dinner"
+          },
+          {
+            "gr": "καθαρίζω",
+            "en": "to clean"
+          },
+          {
+            "gr": "δουλειά",
+            "en": "work"
+          },
+          {
+            "gr": "κοιμάμαι",
+            "en": "to sleep"
+          },
+          {
+            "gr": "νωρίς",
+            "en": "early"
+          },
+          {
+            "gr": "αργά",
+            "en": "late"
+          },
+          {
+            "gr": "αγορά",
+            "en": "market"
+          },
+          {
+            "gr": "μαγειρεύω",
+            "en": "to cook"
+          },
+          {
+            "gr": "πλένω",
+            "en": "to wash"
+          },
+          {
+            "gr": "ντύνομαι",
+            "en": "to dress myself up"
+          },
+          {
+            "gr": "τρώω",
+            "en": "to eat"
+          },
+          {
+            "gr": "πίνω",
+            "en": "to drink"
+          },
+          {
+            "gr": "γραφείο",
+            "en": "office"
           }
         ]
       }
