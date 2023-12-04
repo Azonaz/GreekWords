@@ -1,0 +1,20 @@
+import Foundation
+
+struct Vocabulary: Codable {
+    let vocabulary: VocabularyData
+}
+
+struct VocabularyData: Codable {
+    let groups: [VocabularyGroup]
+}
+
+struct VocabularyGroup: Codable {
+    let name: String
+    let words: [Word]
+}
+
+struct Word: Codable {
+    let id: Int
+    let gr: String
+    let en: String
+}

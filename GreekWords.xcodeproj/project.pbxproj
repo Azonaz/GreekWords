@@ -13,7 +13,8 @@
 		84B42B1F2B1DBF4500C08F31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B1E2B1DBF4500C08F31 /* Assets.xcassets */; };
 		84B42B222B1DBF4500C08F31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B202B1DBF4500C08F31 /* LaunchScreen.storyboard */; };
 		84B42B2C2B1DC4E300C08F31 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B2B2B1DC4E300C08F31 /* words.json */; };
-		84B42B2F2B1DC72D00C08F31 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B2E2B1DC72D00C08F31 /* .swiftlint.yml */; };
+		84B42B352B1DD04800C08F31 /* JsonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B342B1DD04800C08F31 /* JsonService.swift */; };
+		84B42B382B1DD0E200C08F31 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B372B1DD0E200C08F31 /* Words.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,8 @@
 		84B42B212B1DBF4500C08F31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B42B232B1DBF4500C08F31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B42B2B2B1DC4E300C08F31 /* words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
-		84B42B2E2B1DC72D00C08F31 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		84B42B342B1DD04800C08F31 /* JsonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonService.swift; sourceTree = "<group>"; };
+		84B42B372B1DD0E200C08F31 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +63,30 @@
 				84B42B152B1DBF4400C08F31 /* AppDelegate.swift */,
 				84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */,
 				84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */,
+				84B42B362B1DD0C300C08F31 /* Models */,
+				84B42B332B1DD03500C08F31 /* Service */,
 				84B42B1E2B1DBF4500C08F31 /* Assets.xcassets */,
 				84B42B202B1DBF4500C08F31 /* LaunchScreen.storyboard */,
 				84B42B232B1DBF4500C08F31 /* Info.plist */,
 				84B42B2B2B1DC4E300C08F31 /* words.json */,
-				84B42B2E2B1DC72D00C08F31 /* .swiftlint.yml */,
 			);
 			path = GreekWords;
+			sourceTree = "<group>";
+		};
+		84B42B332B1DD03500C08F31 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				84B42B342B1DD04800C08F31 /* JsonService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		84B42B362B1DD0C300C08F31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84B42B372B1DD0E200C08F31 /* Words.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +99,7 @@
 				84B42B0E2B1DBF4400C08F31 /* Sources */,
 				84B42B0F2B1DBF4400C08F31 /* Frameworks */,
 				84B42B102B1DBF4400C08F31 /* Resources */,
+				84B42B322B1DCDB700C08F31 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -128,7 +148,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B42B2F2B1DC72D00C08F31 /* .swiftlint.yml in Resources */,
 				84B42B2C2B1DC4E300C08F31 /* words.json in Resources */,
 				84B42B222B1DBF4500C08F31 /* LaunchScreen.storyboard in Resources */,
 				84B42B1F2B1DBF4500C08F31 /* Assets.xcassets in Resources */,
@@ -136,6 +155,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84B42B322B1DCDB700C08F31 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84B42B0E2B1DBF4400C08F31 /* Sources */ = {
@@ -145,6 +184,8 @@
 				84B42B1A2B1DBF4400C08F31 /* GreekWordViewController.swift in Sources */,
 				84B42B162B1DBF4400C08F31 /* AppDelegate.swift in Sources */,
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
+				84B42B352B1DD04800C08F31 /* JsonService.swift in Sources */,
+				84B42B382B1DD0E200C08F31 /* Words.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
