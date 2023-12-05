@@ -16,6 +16,7 @@ class GreekWordViewController: UIViewController {
         label.backgroundColor = UIColor(resource: .whiteDN)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        label.numberOfLines = 0
         label.layer.borderWidth = 3
         label.layer.borderColor = UIColor(resource: .blackDN).cgColor
         label.layer.cornerRadius = 16

@@ -12,6 +12,7 @@ final class GroupsViewController: UIViewController {
         tableView.layer.cornerRadius = 16
         tableView.layer.masksToBounds = true
         tableView.rowHeight = 50
+        tableView.isScrollEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
