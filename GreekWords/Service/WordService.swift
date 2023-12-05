@@ -1,30 +1,26 @@
 import Foundation
 
 final class WordService {
-    static let jsonService = JsonService()
-    private (set) var vocabulary: Vocabulary?
-    private (set) var words: [Word] = []
-    private (set) var currentRoundWords: [Word] = []
+    private let jsonService = JsonService()
+    private var vocabulary: Vocabulary?
     
-    private func loadVocabulary() {
-        vocabulary = WordService.jsonService.getDataFromFile(name: "words")
-    }
-    
-    private func getWords() {
-        if let vocabularyData = vocabulary?.vocabulary {
-            words = vocabularyData.groups.flatMap { $0.words }
-            currentRoundWords = Array(words.shuffled().prefix(10))
+    func getGroups() -> [VocabularyGroup]? {
+            guard let vocabulary = jsonService.getDataFromFile(name: "words")?.vocabulary else {
+                return nil
+            }
+            return vocabulary.groups
         }
-        print(currentRoundWords)
-    }
     
-    private func getWords(in group: String) {
-        if let vocabularyData = vocabulary?.vocabulary {
-            words = vocabularyData.groups
-                .first { $0.name == group }
-                .flatMap { $0.words } ?? []
-            currentRoundWords = Array(words.shuffled().prefix(10))
+    func loadVocabulary() {
+            vocabulary = jsonService.getDataFromFile(name: "words")
         }
-        print(currentRoundWords)
-    }
+        
+        func getWords(for group: VocabularyGroup) -> [Word] {
+            return group.words
+        }
+        
+        func getRandomWords(for group: VocabularyGroup, count: Int) -> [Word] {
+            let allWords = getWords(for: group)
+            return Array(allWords.shuffled().prefix(count))
+        }
 }

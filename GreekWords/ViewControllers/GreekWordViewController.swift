@@ -3,8 +3,7 @@ import UIKit
 class GreekWordViewController: UIViewController {
     
     var selectedGroup: VocabularyGroup
-    private let jsonService = JsonService()
-    private var vocabulary: Vocabulary?
+    private let wordService = WordService()
     private var words: [Word] = []
     private var currentRoundWords: [Word] = []
     private var correctWord: Word?
@@ -80,7 +79,7 @@ class GreekWordViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .whiteDN)
         setupView()
-        loadVocabulary()
+        wordService.loadVocabulary()
         getWords()
         updateWord()
         setupButtonActions()
@@ -111,16 +110,12 @@ class GreekWordViewController: UIViewController {
             
         ])
     }
-    
-    private func loadVocabulary() {
-        vocabulary = jsonService.getDataFromFile(name: "words")
-    }
-    
+
     private func getWords() {
-        words = selectedGroup.words
-        currentRoundWords = Array(words.shuffled().prefix(10))
-//        print("слова из группы", (selectedGroup))
-//        print(currentRoundWords)
+        words = wordService.getWords(for: selectedGroup)
+        currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
+        print("слова из группы", (selectedGroup))
+        print(currentRoundWords)
     }
     
     private func setRandomWord() {

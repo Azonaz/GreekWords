@@ -2,12 +2,16 @@ import UIKit
 
 final class GroupsViewController: UIViewController {
     
-    private let jsonService = JsonService()
-    private var groups: [VocabularyGroup] = []
     var selectedIndexPath: IndexPath?
+    private let wordService = WordService()
+    private var groups: [VocabularyGroup] = []
     
     private lazy var groupTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = UIColor(resource: .whiteDN)
+        tableView.layer.cornerRadius = 16
+        tableView.layer.masksToBounds = true
+        tableView.rowHeight = 50
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
@@ -37,9 +41,7 @@ final class GroupsViewController: UIViewController {
     }
     
     private func loadGroups() {
-        if let vocabulary = jsonService.getDataFromFile(name: "words") {
-            groups = vocabulary.vocabulary.groups
-        }
+        groups = wordService.getGroups() ?? []
     }
     
     private func tapGroup(_ group: VocabularyGroup) {
