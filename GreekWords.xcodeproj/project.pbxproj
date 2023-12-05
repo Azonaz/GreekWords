@@ -10,6 +10,7 @@
 		8455982E2B1F15A60092A567 /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982D2B1F15A60092A567 /* WordService.swift */; };
 		845598302B1F16120092A567 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982F2B1F16120092A567 /* GroupsViewController.swift */; };
 		845598322B1F18C60092A567 /* CellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845598312B1F18C60092A567 /* CellTableView.swift */; };
+		845598352B1F9A400092A567 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 845598342B1F9A400092A567 /* readme.md */; };
 		84B42B162B1DBF4400C08F31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B152B1DBF4400C08F31 /* AppDelegate.swift */; };
 		84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */; };
 		84B42B1A2B1DBF4400C08F31 /* GreekWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */; };
@@ -25,6 +26,7 @@
 		8455982D2B1F15A60092A567 /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		8455982F2B1F16120092A567 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		845598312B1F18C60092A567 /* CellTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTableView.swift; sourceTree = "<group>"; };
+		845598342B1F9A400092A567 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		84B42B122B1DBF4400C08F31 /* GreekWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreekWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B42B152B1DBF4400C08F31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		84B42B092B1DBF4400C08F31 = {
 			isa = PBXGroup;
 			children = (
+				845598342B1F9A400092A567 /* readme.md */,
 				84B42B142B1DBF4400C08F31 /* GreekWords */,
 				84B42B132B1DBF4400C08F31 /* Products */,
 			);
@@ -178,6 +181,7 @@
 			files = (
 				84B42B2C2B1DC4E300C08F31 /* words.json in Resources */,
 				84B42B222B1DBF4500C08F31 /* LaunchScreen.storyboard in Resources */,
+				845598352B1F9A400092A567 /* readme.md in Resources */,
 				84B42B1F2B1DBF4500C08F31 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

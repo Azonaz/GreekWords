@@ -1,6 +1,7 @@
 import Foundation
 
 final class JsonService {
+    let dictionaryUrl = "https://find-friends-team.ru/words-gr-a1.json"
     
     func getDataFromFile(name: String) -> Vocabulary? {
         guard let jsonData = readLocalFile(forName: name) else {
