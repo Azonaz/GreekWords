@@ -2,6 +2,7 @@ import UIKit
 
 class GreekWordViewController: UIViewController {
     
+    var selectedGroup: VocabularyGroup
     private let jsonService = JsonService()
     private var vocabulary: Vocabulary?
     private var words: [Word] = []
@@ -56,7 +57,6 @@ class GreekWordViewController: UIViewController {
         let button = OptionButton()
         return button
     }()
-
     
     private lazy var buttonsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [fisrtButton, secondButton, thirdButton])
@@ -66,6 +66,15 @@ class GreekWordViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    init(group: VocabularyGroup) {
+        self.selectedGroup = group
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +87,9 @@ class GreekWordViewController: UIViewController {
     }
     
     private func setupView() {
+        navigationItem.title = selectedGroup.name
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         view.addSubview(wordLabel)
         view.addSubview(countLabel)
         view.addSubview(infoLabel)
@@ -87,7 +99,7 @@ class GreekWordViewController: UIViewController {
             wordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             wordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             wordLabel.heightAnchor.constraint(equalToConstant: 150),
-            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             infoLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 100),
             infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
@@ -105,11 +117,10 @@ class GreekWordViewController: UIViewController {
     }
     
     private func getWords() {
-        if let vocabularyData = vocabulary?.vocabulary {
-            words = vocabularyData.groups.flatMap { $0.words }
-            currentRoundWords = Array(words.shuffled().prefix(10))
-        }
-        print(currentRoundWords)
+        words = selectedGroup.words
+        currentRoundWords = Array(words.shuffled().prefix(10))
+//        print("слова из группы", (selectedGroup))
+//        print(currentRoundWords)
     }
     
     private func setRandomWord() {
@@ -179,10 +190,14 @@ class GreekWordViewController: UIViewController {
             message: "Your result: \(correctAnswers)/10.",
             preferredStyle: .alert
         )
-        let playAgainAction = UIAlertAction(title: "Play more", style: .default) { [weak self] _ in
+        let playAgainAction = UIAlertAction(title: "Play again", style: .default) { [weak self] _ in
             self?.resetGame()
         }
         alert.addAction(playAgainAction)
+        let selectGroupAction = UIAlertAction(title: "Select group", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(selectGroupAction)
         present(alert, animated: true, completion: nil)
     }
     

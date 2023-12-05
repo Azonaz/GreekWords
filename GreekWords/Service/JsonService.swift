@@ -1,6 +1,7 @@
 import Foundation
 
 final class JsonService {
+    
     func getDataFromFile(name: String) -> Vocabulary? {
         guard let jsonData = readLocalFile(forName: name) else {
             print("No data in json")

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8455982E2B1F15A60092A567 /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982D2B1F15A60092A567 /* WordService.swift */; };
+		845598302B1F16120092A567 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982F2B1F16120092A567 /* GroupsViewController.swift */; };
+		845598322B1F18C60092A567 /* CellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845598312B1F18C60092A567 /* CellTableView.swift */; };
 		84B42B162B1DBF4400C08F31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B152B1DBF4400C08F31 /* AppDelegate.swift */; };
 		84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */; };
 		84B42B1A2B1DBF4400C08F31 /* GreekWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8455982D2B1F15A60092A567 /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
+		8455982F2B1F16120092A567 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		845598312B1F18C60092A567 /* CellTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTableView.swift; sourceTree = "<group>"; };
 		84B42B122B1DBF4400C08F31 /* GreekWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreekWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B42B152B1DBF4400C08F31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +49,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		845598332B1F194B0092A567 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8455982F2B1F16120092A567 /* GroupsViewController.swift */,
+				845598312B1F18C60092A567 /* CellTableView.swift */,
+				84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		84B42B092B1DBF4400C08F31 = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +80,7 @@
 			children = (
 				84B42B152B1DBF4400C08F31 /* AppDelegate.swift */,
 				84B42B172B1DBF4400C08F31 /* SceneDelegate.swift */,
-				84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */,
+				845598332B1F194B0092A567 /* ViewControllers */,
 				84B42B3B2B1E100100C08F31 /* Views */,
 				84B42B362B1DD0C300C08F31 /* Models */,
 				84B42B332B1DD03500C08F31 /* Service */,
@@ -80,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				84B42B342B1DD04800C08F31 /* JsonService.swift */,
+				8455982D2B1F15A60092A567 /* WordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -195,6 +212,9 @@
 				84B42B1A2B1DBF4400C08F31 /* GreekWordViewController.swift in Sources */,
 				84B42B162B1DBF4400C08F31 /* AppDelegate.swift in Sources */,
 				84B42B3D2B1E101F00C08F31 /* OptionButton.swift in Sources */,
+				845598322B1F18C60092A567 /* CellTableView.swift in Sources */,
+				8455982E2B1F15A60092A567 /* WordService.swift in Sources */,
+				845598302B1F16120092A567 /* GroupsViewController.swift in Sources */,
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
 				84B42B352B1DD04800C08F31 /* JsonService.swift in Sources */,
 				84B42B382B1DD0E200C08F31 /* Words.swift in Sources */,
