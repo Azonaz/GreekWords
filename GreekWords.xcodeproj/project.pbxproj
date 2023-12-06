@@ -16,10 +16,11 @@
 		84B42B1A2B1DBF4400C08F31 /* GreekWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */; };
 		84B42B1F2B1DBF4500C08F31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B1E2B1DBF4500C08F31 /* Assets.xcassets */; };
 		84B42B222B1DBF4500C08F31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B202B1DBF4500C08F31 /* LaunchScreen.storyboard */; };
-		84B42B2C2B1DC4E300C08F31 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B42B2B2B1DC4E300C08F31 /* words.json */; };
-		84B42B352B1DD04800C08F31 /* JsonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B342B1DD04800C08F31 /* JsonService.swift */; };
+		84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B342B1DD04800C08F31 /* NetworkService.swift */; };
 		84B42B382B1DD0E200C08F31 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B372B1DD0E200C08F31 /* Words.swift */; };
 		84B42B3D2B1E101F00C08F31 /* OptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B3C2B1E101F00C08F31 /* OptionButton.swift */; };
+		84DFF2572B209BB80028553C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2562B209BB80028553C /* AlertPresenter.swift */; };
+		84DFF2592B209BF50028553C /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2582B209BF50028553C /* AlertModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +35,11 @@
 		84B42B1E2B1DBF4500C08F31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84B42B212B1DBF4500C08F31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B42B232B1DBF4500C08F31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84B42B2B2B1DC4E300C08F31 /* words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
-		84B42B342B1DD04800C08F31 /* JsonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonService.swift; sourceTree = "<group>"; };
+		84B42B342B1DD04800C08F31 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		84B42B372B1DD0E200C08F31 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		84B42B3C2B1E101F00C08F31 /* OptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButton.swift; sourceTree = "<group>"; };
+		84DFF2562B209BB80028553C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		84DFF2582B209BF50028553C /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +92,6 @@
 				84B42B1E2B1DBF4500C08F31 /* Assets.xcassets */,
 				84B42B202B1DBF4500C08F31 /* LaunchScreen.storyboard */,
 				84B42B232B1DBF4500C08F31 /* Info.plist */,
-				84B42B2B2B1DC4E300C08F31 /* words.json */,
 			);
 			path = GreekWords;
 			sourceTree = "<group>";
@@ -98,8 +99,9 @@
 		84B42B332B1DD03500C08F31 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				84B42B342B1DD04800C08F31 /* JsonService.swift */,
+				84B42B342B1DD04800C08F31 /* NetworkService.swift */,
 				8455982D2B1F15A60092A567 /* WordService.swift */,
+				84DFF2562B209BB80028553C /* AlertPresenter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				84B42B372B1DD0E200C08F31 /* Words.swift */,
+				84DFF2582B209BF50028553C /* AlertModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,7 +182,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B42B2C2B1DC4E300C08F31 /* words.json in Resources */,
 				84B42B222B1DBF4500C08F31 /* LaunchScreen.storyboard in Resources */,
 				845598352B1F9A400092A567 /* readme.md in Resources */,
 				84B42B1F2B1DBF4500C08F31 /* Assets.xcassets in Resources */,
@@ -218,9 +220,11 @@
 				84B42B3D2B1E101F00C08F31 /* OptionButton.swift in Sources */,
 				845598322B1F18C60092A567 /* CellTableView.swift in Sources */,
 				8455982E2B1F15A60092A567 /* WordService.swift in Sources */,
+				84DFF2572B209BB80028553C /* AlertPresenter.swift in Sources */,
 				845598302B1F16120092A567 /* GroupsViewController.swift in Sources */,
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
-				84B42B352B1DD04800C08F31 /* JsonService.swift in Sources */,
+				84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */,
+				84DFF2592B209BF50028553C /* AlertModel.swift in Sources */,
 				84B42B382B1DD0E200C08F31 /* Words.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

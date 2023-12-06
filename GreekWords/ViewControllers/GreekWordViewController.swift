@@ -4,6 +4,7 @@ class GreekWordViewController: UIViewController {
     
     var selectedGroup: VocabularyGroup
     private let wordService = WordService()
+    private var alertPresenter: AlertPresenter?
     private var words: [Word] = []
     private var currentRoundWords: [Word] = []
     private var correctWord: Word?
@@ -78,9 +79,9 @@ class GreekWordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertPresenter = AlertPresenter(viewController: self)
         view.backgroundColor = UIColor(resource: .whiteDN)
         setupView()
-        wordService.loadVocabulary()
         getWords()
         updateWord()
         setupButtonActions()
@@ -115,8 +116,6 @@ class GreekWordViewController: UIViewController {
     private func getWords() {
         words = wordService.getWords(for: selectedGroup)
         currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
-        print("слова из группы", (selectedGroup))
-        print(currentRoundWords)
     }
     
     private func setRandomWord() {
@@ -181,20 +180,15 @@ class GreekWordViewController: UIViewController {
     }
     
     private func showResultsAlert() {
-        let alert = UIAlertController(
-            title: nil,
-            message: "Your result: \(correctAnswers)/10.",
-            preferredStyle: .alert
-        )
-        let playAgainAction = UIAlertAction(title: "Play again", style: .default) { [weak self] _ in
+        let model = AlertModel(title: nil,
+                               message: "Your result: \(correctAnswers)/10.",
+                               button1Text: "Play again",
+                               completion1: { [weak self] in
             self?.resetGame()
-        }
-        alert.addAction(playAgainAction)
-        let selectGroupAction = UIAlertAction(title: "Select group", style: .default) { [weak self] _ in
+        }, button2Text: "Select group", completion2: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
-        }
-        alert.addAction(selectGroupAction)
-        present(alert, animated: true, completion: nil)
+        })
+        alertPresenter?.showResultAlert(with: model)
     }
     
     private func resetGame() {
