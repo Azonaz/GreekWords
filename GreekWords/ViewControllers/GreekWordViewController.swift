@@ -21,7 +21,6 @@ class GreekWordViewController: UIViewController {
         label.layer.borderWidth = 3
         label.layer.borderColor = UIColor(resource: .blackDN).cgColor
         label.layer.cornerRadius = 16
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -32,7 +31,6 @@ class GreekWordViewController: UIViewController {
         label.backgroundColor = UIColor(resource: .whiteDN)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -40,7 +38,6 @@ class GreekWordViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor(resource: .blackDN)
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -64,7 +61,6 @@ class GreekWordViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 20
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -91,10 +87,10 @@ class GreekWordViewController: UIViewController {
         navigationItem.title = selectedGroup.name
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
-        view.addSubview(wordLabel)
-        view.addSubview(countLabel)
-        view.addSubview(infoLabel)
-        view.addSubview(buttonsStackView)
+        [wordLabel, countLabel, infoLabel, buttonsStackView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
         NSLayoutConstraint.activate([
             wordLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             wordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
@@ -185,7 +181,9 @@ class GreekWordViewController: UIViewController {
                                button1Text: "Play again",
                                completion1: { [weak self] in
             self?.resetGame()
-        }, button2Text: "Select group", completion2: { [weak self] in
+        },
+                               button2Text: "Select group",
+                               completion2: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         })
         alertPresenter?.showResultAlert(with: model)

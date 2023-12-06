@@ -17,7 +17,6 @@ final class GroupsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -26,7 +25,6 @@ final class GroupsViewController: UIViewController {
         activityIndicator.style = .medium
         activityIndicator.backgroundColor = .lightGray.withAlphaComponent(0.5)
         activityIndicator.color = .whiteDN
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
     
@@ -44,8 +42,10 @@ final class GroupsViewController: UIViewController {
         navigationItem.title = "Choose a group of words"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationItem.hidesBackButton = true
-        view.addSubview(activityIndicator)
-        view.addSubview(groupTableView)
+        [activityIndicator, groupTableView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
         NSLayoutConstraint.activate([
             groupTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             groupTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
