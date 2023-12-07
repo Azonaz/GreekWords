@@ -98,10 +98,10 @@ class GreekWordViewController: UIViewController {
             wordLabel.heightAnchor.constraint(equalToConstant: 150),
             countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            infoLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 100),
+            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
             infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            buttonsStackView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 50),
+            buttonsStackView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 30),
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 200)
