@@ -4,6 +4,7 @@ A simple app for iPhone helps people to memorize the main words during their fir
 
 Works only in portrait mode. Made with vanilla swift and native SDK.
 
+
 # Requirements
 
 1. The app must support iPhone X and above and adapted for iPhone SE, the minimum supported operating system version is iOS 13.4;
