@@ -12,7 +12,8 @@ final class WordService {
             switch result {
             case .success(let data):
                 do {
-                    let vocabulary = try JSONDecoder().decode(Vocabulary.self, from: data);                         handler(.success(vocabulary))
+                    let vocabulary = try JSONDecoder().decode(Vocabulary.self, from: data);
+                    handler(.success(vocabulary))
                 } catch {
                     handler(.failure(error))
                 }
@@ -33,9 +34,31 @@ final class WordService {
         }
     }
     
+    func getAllWordsForRandom(completion: @escaping ([Word]) -> Void) {
+        loadVocabulary { result in
+            switch result {
+            case .success(let vocabulary):
+                let allWords = vocabulary.vocabulary.groups.flatMap { $0.words }
+                completion(allWords)
+            case .failure(_):
+                completion([])
+            }
+        }
+    }
+    
+    func getRandomWordsForAll(count: Int, completion: @escaping ([Word]) -> Void) {
+        getAllWordsForRandom { allWords in
+            let randomWords = Array(allWords.shuffled().prefix(count))
+            completion(randomWords)
+        }
+    }
+    
+    
     func getWords(for group: VocabularyGroup) -> [Word] {
         return group.words
     }
+    
+    
     
     func getRandomWords(for group: VocabularyGroup, count: Int) -> [Word] {
         let allWords = getWords(for: group)

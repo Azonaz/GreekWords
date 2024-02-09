@@ -7,84 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DD76A6DC-E5DE-48B2-8133-AB93844C7A62"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GroupsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "loadGroups()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DD76A6DC-E5DE-48B2-8133-AB93844C7A62 - b1cbe0ca5552e31a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.GroupsViewController.loadGroups() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "DD76A6DC-E5DE-48B2-8133-AB93844C7A62 - d760f592e44e6f0b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;GreekWords.VocabularyGroup&gt;, Swift.Error&gt;) -&gt; () in GreekWords.GroupsViewController.loadGroups() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "244">
-               </Location>
-               <Location
-                  uuid = "DD76A6DC-E5DE-48B2-8133-AB93844C7A62 - b1cbe0ca5552e37b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.GroupsViewController.loadGroups() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "DD76A6DC-E5DE-48B2-8133-AB93844C7A62 - d760f592e44e6f6a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;GreekWords.VocabularyGroup&gt;, Swift.Error&gt;) -&gt; () in GreekWords.GroupsViewController.loadGroups() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "244">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6644FDE0-4353-4CEC-9FC1-0D7C56E13B15"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -92,8 +14,8 @@
             filePath = "GreekWords/ViewControllers/GroupsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "showAlert()"
             landmarkType = "7">
             <Locations>
@@ -128,102 +50,6 @@
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E40C50B4-502D-4480-A627-84BD3119557D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GreekWordViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "resetGame()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8325FF07-DC14-46B7-BDCA-05BBB97CA12F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GreekWordViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "updateButtonState(_:isCorrect:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8325FF07-DC14-46B7-BDCA-05BBB97CA12F - 533c5e5442041f23"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.GreekWordViewController.updateButtonState(_: __C.UIButton, isCorrect: Swift.Bool) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GreekWordViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "884">
-               </Location>
-               <Location
-                  uuid = "8325FF07-DC14-46B7-BDCA-05BBB97CA12F - bbee063d91d7705"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in GreekWords.GreekWordViewController.updateButtonState(_: __C.UIButton, isCorrect: Swift.Bool) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GreekWordViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "120">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A8C8B4AB-D76F-4D26-887C-8459880B61EA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GreekWordViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "updateButtonState(_:isCorrect:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "97BCCAD0-468A-416A-9CE1-A70E99ADEB9A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GreekWordViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "updateButtonState(_:isCorrect:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
