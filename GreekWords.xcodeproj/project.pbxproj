@@ -19,6 +19,7 @@
 		84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B342B1DD04800C08F31 /* NetworkService.swift */; };
 		84B42B382B1DD0E200C08F31 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B372B1DD0E200C08F31 /* Words.swift */; };
 		84B42B3D2B1E101F00C08F31 /* OptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B3C2B1E101F00C08F31 /* OptionButton.swift */; };
+		84DAFD4D2B7625DA008C6B10 /* ChooseTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */; };
 		84DFF2572B209BB80028553C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2562B209BB80028553C /* AlertPresenter.swift */; };
 		84DFF2592B209BF50028553C /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2582B209BF50028553C /* AlertModel.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		84B42B342B1DD04800C08F31 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		84B42B372B1DD0E200C08F31 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		84B42B3C2B1E101F00C08F31 /* OptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButton.swift; sourceTree = "<group>"; };
+		84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTypeViewController.swift; sourceTree = "<group>"; };
 		84DFF2562B209BB80028553C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		84DFF2582B209BF50028553C /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +58,7 @@
 		845598332B1F194B0092A567 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */,
 				8455982F2B1F16120092A567 /* GroupsViewController.swift */,
 				845598312B1F18C60092A567 /* CellTableView.swift */,
 				84B42B192B1DBF4400C08F31 /* GreekWordViewController.swift */,
@@ -222,6 +225,7 @@
 				8455982E2B1F15A60092A567 /* WordService.swift in Sources */,
 				84DFF2572B209BB80028553C /* AlertPresenter.swift in Sources */,
 				845598302B1F16120092A567 /* GroupsViewController.swift in Sources */,
+				84DAFD4D2B7625DA008C6B10 /* ChooseTypeViewController.swift in Sources */,
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
 				84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */,
 				84DFF2592B209BF50028553C /* AlertModel.swift in Sources */,
@@ -378,6 +382,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -410,6 +415,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

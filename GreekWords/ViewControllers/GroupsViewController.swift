@@ -41,7 +41,6 @@ final class GroupsViewController: UIViewController {
         view.backgroundColor = UIColor(resource: .whiteDN)
         navigationItem.title = "Choose a group of words"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
-        navigationItem.hidesBackButton = true
         [activityIndicator, groupTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)

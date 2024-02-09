@@ -2,10 +2,11 @@ import UIKit
 
 class GreekWordViewController: UIViewController {
     
-    var selectedGroup: VocabularyGroup
+    var selectedGroup: VocabularyGroup?
     private let wordService = WordService()
     private var alertPresenter: AlertPresenter?
     private var words: [Word] = []
+    private var vocabulary: Vocabulary?
     private var currentRoundWords: [Word] = []
     private var correctWord: Word?
     private var questionsAsked = 0
@@ -45,12 +46,12 @@ class GreekWordViewController: UIViewController {
         let button = OptionButton()
         return button
     }()
-
+    
     private lazy var secondButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
-
+    
     private lazy var thirdButton: OptionButton = {
         let button = OptionButton()
         return button
@@ -64,7 +65,7 @@ class GreekWordViewController: UIViewController {
         return stackView
     }()
     
-    init(group: VocabularyGroup) {
+    init(group: VocabularyGroup?) {
         self.selectedGroup = group
         super.init(nibName: nil, bundle: nil)
     }
@@ -78,13 +79,19 @@ class GreekWordViewController: UIViewController {
         alertPresenter = AlertPresenter(viewController: self)
         view.backgroundColor = UIColor(resource: .whiteDN)
         setupView()
-        getWords()
-        updateWord()
-        setupButtonActions()
+        getWords {
+            self.updateWord()
+            self.setupButtonActions()
+        }
+        
     }
     
     private func setupView() {
-        navigationItem.title = selectedGroup.name
+        if let selectedGroupName = selectedGroup?.name, !selectedGroupName.isEmpty {
+            navigationItem.title = selectedGroupName
+        } else {
+            navigationItem.title = "Random words"
+        }
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         [wordLabel, countLabel, infoLabel, buttonsStackView].forEach {
@@ -108,10 +115,44 @@ class GreekWordViewController: UIViewController {
             
         ])
     }
-
-    private func getWords() {
-        words = wordService.getWords(for: selectedGroup)
-        currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
+    
+    private func getWords(completion: @escaping () -> Void) {
+        if let selectedGroup = selectedGroup {
+            words = wordService.getWords(for: selectedGroup)
+            currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
+            completion()
+        } else {
+            loadVocabulary()
+            wordService.getAllWordsForRandom { allWords in
+                self.words = allWords
+                self.wordService.getRandomWordsForAll(count: 10) { randomWords in
+                    self.currentRoundWords = randomWords
+                    completion()
+                }
+            }
+        }
+    }
+    
+    private func loadVocabulary() {
+        wordService.loadVocabulary { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let vocabulary):
+                self.vocabulary = vocabulary
+            case .failure(_):
+                self.showAlert()
+            }
+        }
+    }
+    
+    private func showAlert() {
+        let model = AlertModel(title: nil,
+                               message: "Error data loading",
+                               button1Text: "Retry",
+                               completion1: { [weak self] in
+            self?.loadVocabulary()
+        })
+        alertPresenter?.showErrorAlert(model: model)
     }
     
     private func setRandomWord() {
@@ -192,8 +233,9 @@ class GreekWordViewController: UIViewController {
     private func resetGame() {
         questionsAsked = 0
         correctAnswers = 0
-        getWords()
-        updateWord()
+        getWords {
+            self.updateWord()
+        }
     }
     
     @objc
