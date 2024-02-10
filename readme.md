@@ -10,7 +10,7 @@ Works only in portrait mode. Made with vanilla swift and native SDK.
 
 # Requirements
 
-1. The app must support iPhone X and above and adapted for iPhone SE, the minimum supported operating system version is iOS 13.4;
+1. The app must support iPhone X and above and be adapted for iPhone SE, the minimum supported operating system version is iOS 13.4;
 2. The application uses the standard iOS font - SF Pro.
 
 Stack: Swift, UIKit, URLSession, swiftlint.
