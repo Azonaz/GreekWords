@@ -118,42 +118,18 @@ class GreekWordViewController: UIViewController {
     
     private func getWords(completion: @escaping () -> Void) {
         if let selectedGroup = selectedGroup {
-            words = wordService.getWords(for: selectedGroup)
-            currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
-            completion()
-        } else {
-            loadVocabulary()
-            wordService.getAllWordsForRandom { allWords in
-                self.words = allWords
-                self.wordService.getRandomWordsForAll(count: 10) { randomWords in
-                    self.currentRoundWords = randomWords
+                    words = wordService.getWords(for: selectedGroup)
+                    currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
                     completion()
-                }
+        } else {
+            wordService.getRandomWordsForAll(count: 10) { randomWords in
+                self.currentRoundWords = randomWords
+                self.words = randomWords
+                completion()
             }
         }
     }
-    
-    private func loadVocabulary() {
-        wordService.loadVocabulary { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let vocabulary):
-                self.vocabulary = vocabulary
-            case .failure(_):
-                self.showAlert()
-            }
-        }
-    }
-    
-    private func showAlert() {
-        let model = AlertModel(title: nil,
-                               message: "Error data loading",
-                               button1Text: "Retry",
-                               completion1: { [weak self] in
-            self?.loadVocabulary()
-        })
-        alertPresenter?.showErrorAlert(model: model)
-    }
+
     
     private func setRandomWord() {
         if let randomWord = currentRoundWords.popLast() {
