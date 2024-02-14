@@ -6,7 +6,7 @@ Works only in portrait mode. Made with vanilla swift and native SDK.
 
 # Screencast
 
-![2](https://github.com/Azonaz/GreekWords/assets/125258194/081b81e8-2a2e-4b88-936c-37c939b1ccc6)
+![greek](https://github.com/Azonaz/GreekWords/assets/125258194/f2edc1fe-3096-4967-ad65-8037b2d3cf0d)
 
 # Requirements
 
