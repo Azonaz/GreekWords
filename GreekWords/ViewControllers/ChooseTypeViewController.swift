@@ -61,7 +61,6 @@ final class ChooseTypeViewController: UIViewController {
         label.textColor = UIColor(resource: .blackDN)
         label.backgroundColor = UIColor(resource: .greyDN)
         label.textAlignment = .center
-        label.text = "ο αριθμό"
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -72,7 +71,6 @@ final class ChooseTypeViewController: UIViewController {
         label.textColor = UIColor(resource: .blackDN)
         label.backgroundColor = UIColor(resource: .greyDN)
         label.textAlignment = .center
-        label.text = "number"
         label.font = UIFont.italicSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -138,24 +136,24 @@ final class ChooseTypeViewController: UIViewController {
         NSLayoutConstraint.activate([
             wordStackView.centerYAnchor.constraint(equalTo: wordContainView.centerYAnchor),
             wordStackView.centerXAnchor.constraint(equalTo: wordContainView.centerXAnchor),
-            ])
+        ])
     }
     
     private func setWordForCurrentDate() {
         let calendar = Calendar.current
         let dayOfMonth = calendar.component(.day, from: Date())
         wordService.loadWordDay { result in
-               switch result {
-               case .success(let vocabularyWordDay):
-                   DispatchQueue.main.async {
-                       let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
-                       self.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
-                       self.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
-                   }
-               case .failure(let error):
-                   print(error)
-               }
-           }
+            switch result {
+            case .success(let vocabularyWordDay):
+                DispatchQueue.main.async {
+                    let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
+                    self.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
+                    self.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     @objc

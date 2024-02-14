@@ -83,7 +83,6 @@ class GreekWordViewController: UIViewController {
             self.updateWord()
             self.setupButtonActions()
         }
-        
     }
     
     private func setupView() {
@@ -118,9 +117,9 @@ class GreekWordViewController: UIViewController {
     
     private func getWords(completion: @escaping () -> Void) {
         if let selectedGroup = selectedGroup {
-                    words = wordService.getWords(for: selectedGroup)
-                    currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
-                    completion()
+            words = wordService.getWords(for: selectedGroup)
+            currentRoundWords = wordService.getRandomWords(for: selectedGroup, count: 10)
+            completion()
         } else {
             wordService.getRandomWordsForAll(count: 10) { randomWords in
                 self.currentRoundWords = randomWords
