@@ -1,7 +1,9 @@
 import UIKit
+import GoogleMobileAds
 
 final class ChooseTypeViewController: UIViewController {
     
+    var bannerView: GADBannerView!
     private let wordService = WordService()
     
     private lazy var fisrtButton: OptionButton = {
@@ -101,6 +103,11 @@ final class ChooseTypeViewController: UIViewController {
         setupView()
         createWordContainView()
         setWordForCurrentDate()
+        bannerView = GADBannerView(adSize: GADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "ca-app-pub-5556708431342690/1500663167"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
     
     private func setupView() {
@@ -154,6 +161,27 @@ final class ChooseTypeViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    private func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: view.safeAreaLayoutGuide,
+                                attribute: .bottom,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
     
     @objc
