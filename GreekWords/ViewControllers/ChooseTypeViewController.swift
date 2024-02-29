@@ -3,8 +3,18 @@ import GoogleMobileAds
 
 final class ChooseTypeViewController: UIViewController {
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
     var bannerView: GADBannerView!
     private let wordService = WordService()
+    private var article = ""
+    private var greekWord = ""
+    private var labelArray: [UILabel] = []
+    private var lastLabelValue: String?
     
     private lazy var fisrtButton: OptionButton = {
         let button = OptionButton()
@@ -127,7 +137,7 @@ final class ChooseTypeViewController: UIViewController {
         button.tintColor = .lightGray
         button.setTitle("  Delete", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        button.addTarget(self, action: #selector(tapRandomSelection), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         return button
     }()
     
@@ -138,7 +148,7 @@ final class ChooseTypeViewController: UIViewController {
         button.tintColor = .lightGray
         button.setTitle("  Help", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        button.addTarget(self, action: #selector(tapRandomSelection), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapHelpButton), for: .touchUpInside)
         return button
     }()
     
@@ -150,7 +160,7 @@ final class ChooseTypeViewController: UIViewController {
         button.setTitle("  OK", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
         button.titleLabel?.textColor = .lightGray
-        button.addTarget(self, action: #selector(tapRandomSelection), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapOkButton), for: .touchUpInside)
         return button
     }()
     
@@ -197,7 +207,7 @@ final class ChooseTypeViewController: UIViewController {
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            buttonsStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            buttonsStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 150),
@@ -234,8 +244,14 @@ final class ChooseTypeViewController: UIViewController {
                     let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
                     self.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
                     self.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
-                    self.wordContainView.isHidden = true
-                    self.processWordDay(vocabularyWordDay.vocabulary.words[validIndex].gr)
+                    if let lastPlayedDateString = UserDefaults.standard.string(forKey: "lastPlayedDate"),
+                       let lastPlayedDate = self.dateFormatter.date(from: lastPlayedDateString),
+                       calendar.isDateInToday(lastPlayedDate) {
+                        self.wordContainView.isHidden = false
+                    } else {
+                        self.wordContainView.isHidden = true
+                        self.processWordDay(vocabularyWordDay.vocabulary.words[validIndex].gr)
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -246,25 +262,24 @@ final class ChooseTypeViewController: UIViewController {
     private func processWordDay(_ originalWord: String) {
         let components = originalWord.components(separatedBy: " ")
         var shuffledDayWord = ""
-        var article = ""
-        var enWordText = ""
         if let firstPart = components.first, let secondPart = components.last {
             let shuffledCharacters = secondPart.shuffled()
             shuffledDayWord = String(shuffledCharacters)
             article = firstPart
-            enWordText = secondPart
+            greekWord = secondPart
         } else {
             let shuffledCharacters = originalWord.shuffled()
             shuffledDayWord = String(shuffledCharacters)
-            enWordText = originalWord
+            greekWord = originalWord
         }
-        addLetterStackView(shuffledDayWord, article: article)
-        addLetterButtonStackView(shuffledDayWord, enWordText: enWordText)
+        addLetterStackView(shuffledDayWord)
+        addLetterButtonStackView(shuffledDayWord)
     }
     
-    private func addLetterStackView(_ shuffledDayWord: String, article: String) {
+    private func addLetterStackView(_ shuffledDayWord: String) {
         for char in shuffledDayWord {
             let letterLabel = WordLabel()
+            labelArray.append(letterLabel)
             letterStackView.addArrangedSubview(letterLabel)
         }
         [letterStackView, backButton, helpButton, articleLabel].forEach {
@@ -287,16 +302,16 @@ final class ChooseTypeViewController: UIViewController {
             articleLabel.bottomAnchor.constraint(equalTo: letterStackView.topAnchor, constant: -5),
             articleLabel.leadingAnchor.constraint(equalTo: letterStackView.leadingAnchor)
         ])
-        articleLabel.text = article
-        articleLabel.isHidden = false
     }
     
-    private func addLetterButtonStackView(_ shuffledDayWord: String, enWordText: String) {
+    private func addLetterButtonStackView(_ shuffledDayWord: String) {
         for char in shuffledDayWord {
             let letterButton = LetterButton()
             letterButton.setTitle(String(char), for: .normal)
+            letterButton.addTarget(self, action: #selector(letterButtonTapped(_:)), for: .touchUpInside)
             letterButtonStackView.addArrangedSubview(letterButton)
         }
+        letterButtonStackView.isUserInteractionEnabled = true
         [letterButtonStackView, okButton, helpEnLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -313,8 +328,41 @@ final class ChooseTypeViewController: UIViewController {
             helpEnLabel.leadingAnchor.constraint(equalTo: letterButtonStackView.leadingAnchor),
             helpEnLabel.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: 5)
         ])
-        helpEnLabel.text = enWordText
-        helpEnLabel.isHidden = false
+    }
+    
+    private func addTextToLabels(_ text: String) {
+        guard let nextLabel = self.labelArray.first(where: { $0.text == "" }) else {
+            return
+        }
+        nextLabel.text = text
+        self.view.layoutIfNeeded()
+    }
+    
+    private func clearLabels() {
+        for label in labelArray {
+            label.text = ""
+        }
+    }
+    
+    private func enableLetterButtons() {
+        for button in letterButtonStackView.arrangedSubviews {
+            guard let letterButton = button as? LetterButton else {
+                continue
+            }
+            letterButton.isEnabled = true
+            letterButton.setTitleColor(.blackDN, for: .normal)
+        }
+    }
+    
+    private func hideGame() {
+        letterStackView.isHidden = true
+        letterButtonStackView.isHidden = true
+        okButton.isHidden = true
+        helpEnLabel.isHidden = true
+        articleLabel.isHidden = true
+        backButton.isHidden = true
+        helpButton.isHidden = true
+        wordContainView.isHidden = false
     }
     
     // MARK: - adMob method
@@ -339,7 +387,7 @@ final class ChooseTypeViewController: UIViewController {
                                 constant: 0)
             ])
     }
-    
+
     // MARK: - objc methods
     
     @objc
@@ -348,8 +396,76 @@ final class ChooseTypeViewController: UIViewController {
         navigationController?.pushViewController(groupsViewController, animated: true)
     }
     
-    @objc func tapRandomSelection() {
+    @objc
+    private func tapRandomSelection() {
         let randomWordsViewController = GreekWordViewController(group: nil)
         navigationController?.pushViewController(randomWordsViewController, animated: true)
+    }
+    
+    @objc private func letterButtonTapped(_ sender: LetterButton) {
+        guard let tappedText = sender.title(for: .normal) else {
+            return
+        }
+        addTextToLabels(tappedText)
+        sender.isEnabled = false
+        sender.setTitleColor(.lightGray, for: .normal)
+    }
+    
+    @objc
+    private func tapHelpButton() {
+        articleLabel.text = article
+        articleLabel.isHidden = false
+        helpEnLabel.text = enWordLabel.text
+        helpEnLabel.isHidden = false
+    }
+    
+    @objc
+    private func tapBackButton() {
+        guard let lastLabel = labelArray.last(where: { $0.text != nil && !$0.text!.isEmpty }) else {
+            return
+        }
+        lastLabelValue = lastLabel.text
+        lastLabel.text?.removeLast()
+        for (index, button) in letterButtonStackView.arrangedSubviews.enumerated() {
+            guard let letterButton = button as? LetterButton else {
+                continue
+            }
+            if let titleColor = letterButton.titleColor(for: .normal), titleColor == .lightGray,
+               letterButton.title(for: .normal) == lastLabelValue {
+                letterButton.isEnabled = true
+                letterButton.setTitleColor(.blackDN, for: .normal)
+                break
+            }
+        }
+    }
+    
+    @objc
+    private func tapOkButton() {
+        let enteredWord = labelArray.compactMap { $0.text }.joined()
+        let isCorrect = enteredWord == greekWord
+        for label in labelArray {
+            if isCorrect {
+                label.layer.borderColor = UIColor.greenU.cgColor
+                articleLabel.text = article
+                articleLabel.isHidden = false
+                helpEnLabel.text = enWordLabel.text
+                helpEnLabel.isHidden = false
+                let dateString = dateFormatter.string(from: Date())
+                UserDefaults.standard.set(dateString, forKey: "lastPlayedDate")
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                    self.hideGame()
+                }
+            } else {
+                label.layer.borderColor = UIColor.redU.cgColor
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                    for label in self.labelArray {
+                        label.layer.borderWidth = 1.0
+                        label.layer.borderColor = UIColor.lightGray.cgColor
+                    }
+                    self.clearLabels()
+                    self.enableLetterButtons()
+                }
+            }
+        }
     }
 }
