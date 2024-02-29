@@ -8,7 +8,7 @@ final class CellTableView: UITableViewCell {
         textLabel?.text = title
         textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         textLabel?.textColor = UIColor(resource: .blackDN)
-        backgroundColor = UIColor(resource: .greyDN)
+        backgroundColor = UIColor(resource: .whiteDN)
         layer.masksToBounds = true
         layer.cornerRadius = 16
         selectionStyle = .none

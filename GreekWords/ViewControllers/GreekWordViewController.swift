@@ -19,9 +19,8 @@ class GreekWordViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         label.numberOfLines = 0
-        label.layer.borderWidth = 3
-        label.layer.borderColor = UIColor(resource: .blackDN).cgColor
         label.layer.cornerRadius = 16
+        label.layer.masksToBounds = true
         return label
     }()
     
@@ -29,7 +28,7 @@ class GreekWordViewController: UIViewController {
         let label = UILabel()
         label.text = "Select correct option"
         label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
+        label.backgroundColor = UIColor(resource: .greyDN)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
@@ -77,7 +76,7 @@ class GreekWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(viewController: self)
-        view.backgroundColor = UIColor(resource: .whiteDN)
+        view.backgroundColor = UIColor(resource: .greyDN)
         setupView()
         getWords {
             self.updateWord()
@@ -179,8 +178,7 @@ class GreekWordViewController: UIViewController {
         sender.layer.borderColor = isCorrect ? UIColor(resource: .greenU).cgColor : UIColor(resource: .redU).cgColor
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
-            sender.layer.borderWidth = 1
-            sender.layer.borderColor = UIColor(resource: .blackDN).cgColor
+            sender.layer.borderWidth = 0
             self.unblockButtons()
             if questionsAsked < 10 {
                 self.updateWord()

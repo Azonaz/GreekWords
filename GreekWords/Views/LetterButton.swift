@@ -1,6 +1,6 @@
 import UIKit
 
-class OptionButton: UIButton {
+class LetterButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupButton()
@@ -14,8 +14,8 @@ class OptionButton: UIButton {
     private func setupButton() {
         setTitle("", for: .normal)
         setTitleColor(UIColor(resource: .blackDN), for: .normal)
-        layer.cornerRadius = 12
         backgroundColor = .whiteDN
+        layer.cornerRadius = 3
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
