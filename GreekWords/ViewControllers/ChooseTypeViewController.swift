@@ -13,6 +13,7 @@ final class ChooseTypeViewController: UIViewController {
     private let wordService = WordService()
     private var article = ""
     private var greekWord = ""
+    private var dayOfMonth: Int = 0
     private var labelArray: [UILabel] = []
     private var lastLabelValue: String?
     
@@ -184,6 +185,18 @@ final class ChooseTypeViewController: UIViewController {
         return label
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -193,7 +206,7 @@ final class ChooseTypeViewController: UIViewController {
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "ca-app-pub-5556708431342690/1500663167"
         bannerView.rootViewController = self
-//        bannerView.load(GADRequest())
+        bannerView.load(GADRequest())
     }
     
     private func setupView() {
@@ -236,12 +249,12 @@ final class ChooseTypeViewController: UIViewController {
     
     private func setWordForCurrentDate() {
         let calendar = Calendar.current
-        let dayOfMonth = calendar.component(.day, from: Date())
+        dayOfMonth = calendar.component(.day, from: Date())
         wordService.loadWordDay { result in
             switch result {
             case .success(let vocabularyWordDay):
                 DispatchQueue.main.async {
-                    let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
+                    let validIndex = max(0, min(self.dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
                     self.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
                     self.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
                     if let lastPlayedDateString = UserDefaults.standard.string(forKey: "lastPlayedDate"),
@@ -251,6 +264,7 @@ final class ChooseTypeViewController: UIViewController {
                     } else {
                         self.wordContainView.isHidden = true
                         self.processWordDay(vocabularyWordDay.vocabulary.words[validIndex].gr)
+                        self.checkOkButton()
                     }
                 }
             case .failure(let error):
@@ -277,6 +291,7 @@ final class ChooseTypeViewController: UIViewController {
     }
     
     private func addLetterStackView(_ shuffledDayWord: String) {
+        letterStackView.subviews.forEach { $0.removeFromSuperview() }
         for char in shuffledDayWord {
             let letterLabel = WordLabel()
             labelArray.append(letterLabel)
@@ -305,6 +320,7 @@ final class ChooseTypeViewController: UIViewController {
     }
     
     private func addLetterButtonStackView(_ shuffledDayWord: String) {
+        letterButtonStackView.subviews.forEach { $0.removeFromSuperview() }
         for char in shuffledDayWord {
             let letterButton = LetterButton()
             letterButton.setTitle(String(char), for: .normal)
@@ -336,6 +352,10 @@ final class ChooseTypeViewController: UIViewController {
         }
         nextLabel.text = text
         self.view.layoutIfNeeded()
+    }
+    
+    private func checkOkButton() {
+        okButton.isEnabled = !labelArray.contains { $0.text == "" }
     }
     
     private func clearLabels() {
@@ -402,13 +422,15 @@ final class ChooseTypeViewController: UIViewController {
         navigationController?.pushViewController(randomWordsViewController, animated: true)
     }
     
-    @objc private func letterButtonTapped(_ sender: LetterButton) {
+    @objc
+    private func letterButtonTapped(_ sender: LetterButton) {
         guard let tappedText = sender.title(for: .normal) else {
             return
         }
         addTextToLabels(tappedText)
         sender.isEnabled = false
         sender.setTitleColor(.lightGray, for: .normal)
+        checkOkButton()
     }
     
     @objc
@@ -437,6 +459,7 @@ final class ChooseTypeViewController: UIViewController {
                 break
             }
         }
+        checkOkButton()
     }
     
     @objc
@@ -466,6 +489,17 @@ final class ChooseTypeViewController: UIViewController {
                     self.enableLetterButtons()
                 }
             }
+        }
+    }
+    
+    @objc
+    private func appDidBecomeActive() {
+        let calendar = Calendar.current
+        let checkedDayOfMonth = calendar.component(.day, from: Date())
+        if checkedDayOfMonth != dayOfMonth {
+            setWordForCurrentDate()
+        } else {
+            return
         }
     }
 }
