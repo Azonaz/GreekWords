@@ -2,20 +2,125 @@ import UIKit
 import GoogleMobileAds
 
 final class ChooseTypeViewController: UIViewController {
+
+    var bannerView: GADBannerView!
+    var gameManager: WordDayManager!
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
+    lazy var grWordLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(resource: .blackDN)
+        label.backgroundColor = UIColor(resource: .whiteDN)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    var bannerView: GADBannerView!
-    private let wordService = WordService()
-    private var article = ""
-    private var greekWord = ""
-    private var dayOfMonth: Int = 0
-    private var labelArray: [UILabel] = []
-    private var lastLabelValue: String?
+    lazy var enWordLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(resource: .blackDN)
+        label.backgroundColor = UIColor(resource: .whiteDN)
+        label.textAlignment = .center
+        label.font = UIFont.italicSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var wordStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [grWordLabel, enWordLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    lazy var wordContainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .whiteDN)
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
+    lazy var letterLabel: WordLabel = {
+        let label = WordLabel()
+        return label
+    }()
+    
+    lazy var letterStackView: UIStackView = {
+        let letterStackView = UIStackView()
+        letterStackView.axis = .horizontal
+        letterStackView.distribution = .fillEqually
+        letterStackView.spacing = 3
+        return letterStackView
+    }()
+    
+    lazy var letterButton: LetterButton = {
+        let button = LetterButton()
+        return button
+    }()
+    
+    lazy var letterButtonStackView: UIStackView = {
+        let buttonStackView = UIStackView()
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 2
+        return buttonStackView
+    }()
+    
+    lazy var backButton: OptionButton = {
+        let button = OptionButton()
+        let deleteImage = UIImage(systemName: "delete.backward")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(deleteImage, for: .normal)
+        button.tintColor = .lightGray
+        button.setTitle("  Delete", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var helpButton: OptionButton = {
+        let button = OptionButton()
+        let helpImage = UIImage(systemName: "questionmark")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(helpImage, for: .normal)
+        button.tintColor = .lightGray
+        button.setTitle("  Help", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.addTarget(self, action: #selector(tapHelpButton), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var okButton: OptionButton = {
+        let button = OptionButton()
+        let okImage = UIImage(systemName: "checkmark")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(okImage, for: .normal)
+        button.tintColor = .lightGray
+        button.setTitle("  OK", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.titleLabel?.textColor = .lightGray
+        button.addTarget(self, action: #selector(tapOkButton), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var articleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(resource: .blackDN)
+        label.backgroundColor = .clear
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.isHidden = true
+        return label
+    }()
+    
+    lazy var helpEnLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(resource: .blackDN)
+        label.backgroundColor = .clear
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.isHidden = true
+        return label
+    }()
     
     private lazy var fisrtButton: OptionButton = {
         let button = OptionButton()
@@ -69,122 +174,6 @@ final class ChooseTypeViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var grWordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var enWordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.italicSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var wordStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [grWordLabel, enWordLabel])
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private lazy var wordContainView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(resource: .whiteDN)
-        view.layer.cornerRadius = 16
-        return view
-    }()
-    
-    private lazy var letterLabel: WordLabel = {
-        let label = WordLabel()
-        return label
-    }()
-    
-    private lazy var letterStackView: UIStackView = {
-        let letterStackView = UIStackView()
-        letterStackView.axis = .horizontal
-        letterStackView.distribution = .fillEqually
-        letterStackView.spacing = 3
-        return letterStackView
-    }()
-    
-    private lazy var letterButton: LetterButton = {
-        let button = LetterButton()
-        return button
-    }()
-    
-    private lazy var letterButtonStackView: UIStackView = {
-        let buttonStackView = UIStackView()
-        buttonStackView.axis = .horizontal
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 2
-        return buttonStackView
-    }()
-    
-    private lazy var backButton: OptionButton = {
-        let button = OptionButton()
-        let deleteImage = UIImage(systemName: "delete.backward")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(deleteImage, for: .normal)
-        button.tintColor = .lightGray
-        button.setTitle("  Delete", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        button.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var helpButton: OptionButton = {
-        let button = OptionButton()
-        let helpImage = UIImage(systemName: "questionmark")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(helpImage, for: .normal)
-        button.tintColor = .lightGray
-        button.setTitle("  Help", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        button.addTarget(self, action: #selector(tapHelpButton), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var okButton: OptionButton = {
-        let button = OptionButton()
-        let okImage = UIImage(systemName: "checkmark")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(okImage, for: .normal)
-        button.tintColor = .lightGray
-        button.setTitle("  OK", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        button.titleLabel?.textColor = .lightGray
-        button.addTarget(self, action: #selector(tapOkButton), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var articleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = .clear
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.isHidden = true
-        return label
-    }()
-    
-    private lazy var helpEnLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = .clear
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.isHidden = true
-        return label
-    }()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self,
@@ -192,22 +181,82 @@ final class ChooseTypeViewController: UIViewController {
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gameManager = WordDayManager(viewController: self)
         setupView()
-        createWordContainView()
-        setWordForCurrentDate()
+        gameManager.setWordForCurrentDate()
         bannerView = GADBannerView(adSize: GADAdSizeBanner)
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "ca-app-pub-5556708431342690/1500663167"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - adMob method
+    
+    private func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints([
+            NSLayoutConstraint(item: bannerView,
+                               attribute: .bottom,
+                               relatedBy: .equal,
+                               toItem: view.safeAreaLayoutGuide,
+                               attribute: .bottom,
+                               multiplier: 1,
+                               constant: 0),
+            NSLayoutConstraint(item: bannerView,
+                               attribute: .centerX,
+                               relatedBy: .equal,
+                               toItem: view,
+                               attribute: .centerX,
+                               multiplier: 1,
+                               constant: 0)
+        ])
+    }
+
+    // MARK: - objc methods
+    
+    @objc private func tapGroupSelection() {
+        let groupsViewController = GroupsViewController()
+        navigationController?.pushViewController(groupsViewController, animated: true)
+    }
+    
+    @objc private func tapRandomSelection() {
+        let randomWordsViewController = GreekWordViewController(group: nil)
+        navigationController?.pushViewController(randomWordsViewController, animated: true)
+    }
+    
+    @objc private func tapOkButton() {
+        gameManager.tapOkButton()
+    }
+    
+    @objc private func tapBackButton() {
+        gameManager.tapBackButton()
+    }
+    
+    @objc private func tapHelpButton() {
+        gameManager.tapHelpButton()
+    }
+    
+    @objc private func appDidBecomeActive() {
+        let calendar = Calendar.current
+        let checkedDayOfMonth = calendar.component(.day, from: Date())
+        if checkedDayOfMonth != gameManager.dayOfMonth {
+            gameManager.setWordForCurrentDate()
+        }
+    }
+}
+
+// MARK: - Creating UI
+
+extension ChooseTypeViewController {
     
     private func setupView() {
         view.backgroundColor = UIColor(resource: .greyDN)
@@ -235,6 +284,7 @@ final class ChooseTypeViewController: UIViewController {
             wordContainView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             wordContainView.heightAnchor.constraint(equalToConstant: 110)
         ])
+        createWordContainView()
     }
     
     private func createWordContainView() {
@@ -245,58 +295,7 @@ final class ChooseTypeViewController: UIViewController {
         ])
     }
     
-    // MARK: - Word of the day
-    
-    private func setWordForCurrentDate() {
-        let calendar = Calendar.current
-        dayOfMonth = calendar.component(.day, from: Date())
-        wordService.loadWordDay { result in
-            switch result {
-            case .success(let vocabularyWordDay):
-                DispatchQueue.main.async {
-                    let validIndex = max(0, min(self.dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
-                    self.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
-                    self.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
-                    if let lastPlayedDateString = UserDefaults.standard.string(forKey: "lastPlayedDate"),
-                       let lastPlayedDate = self.dateFormatter.date(from: lastPlayedDateString),
-                       calendar.isDateInToday(lastPlayedDate) {
-                        self.wordContainView.isHidden = false
-                    } else {
-                        self.wordContainView.isHidden = true
-                        self.processWordDay(vocabularyWordDay.vocabulary.words[validIndex].gr)
-                        self.checkOkButton()
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    private func processWordDay(_ originalWord: String) {
-        let components = originalWord.components(separatedBy: " ")
-        var shuffledDayWord = ""
-        if let firstPart = components.first, let secondPart = components.last {
-            let shuffledCharacters = secondPart.shuffled()
-            shuffledDayWord = String(shuffledCharacters)
-            article = firstPart
-            greekWord = secondPart
-        } else {
-            let shuffledCharacters = originalWord.shuffled()
-            shuffledDayWord = String(shuffledCharacters)
-            greekWord = originalWord
-        }
-        addLetterStackView(shuffledDayWord)
-        addLetterButtonStackView(shuffledDayWord)
-    }
-    
-    private func addLetterStackView(_ shuffledDayWord: String) {
-        letterStackView.subviews.forEach { $0.removeFromSuperview() }
-        for char in shuffledDayWord {
-            let letterLabel = WordLabel()
-            labelArray.append(letterLabel)
-            letterStackView.addArrangedSubview(letterLabel)
-        }
+    func createLabelView () {
         [letterStackView, backButton, helpButton, articleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -319,14 +318,7 @@ final class ChooseTypeViewController: UIViewController {
         ])
     }
     
-    private func addLetterButtonStackView(_ shuffledDayWord: String) {
-        letterButtonStackView.subviews.forEach { $0.removeFromSuperview() }
-        for char in shuffledDayWord {
-            let letterButton = LetterButton()
-            letterButton.setTitle(String(char), for: .normal)
-            letterButton.addTarget(self, action: #selector(letterButtonTapped(_:)), for: .touchUpInside)
-            letterButtonStackView.addArrangedSubview(letterButton)
-        }
+    func createButtonView() {
         letterButtonStackView.isUserInteractionEnabled = true
         [letterButtonStackView, okButton, helpEnLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -346,160 +338,4 @@ final class ChooseTypeViewController: UIViewController {
         ])
     }
     
-    private func addTextToLabels(_ text: String) {
-        guard let nextLabel = self.labelArray.first(where: { $0.text == "" }) else {
-            return
-        }
-        nextLabel.text = text
-        self.view.layoutIfNeeded()
-    }
-    
-    private func checkOkButton() {
-        okButton.isEnabled = !labelArray.contains { $0.text == "" }
-    }
-    
-    private func clearLabels() {
-        for label in labelArray {
-            label.text = ""
-        }
-    }
-    
-    private func enableLetterButtons() {
-        for button in letterButtonStackView.arrangedSubviews {
-            guard let letterButton = button as? LetterButton else {
-                continue
-            }
-            letterButton.isEnabled = true
-            letterButton.setTitleColor(.blackDN, for: .normal)
-        }
-    }
-    
-    private func hideGame() {
-        letterStackView.isHidden = true
-        letterButtonStackView.isHidden = true
-        okButton.isHidden = true
-        helpEnLabel.isHidden = true
-        articleLabel.isHidden = true
-        backButton.isHidden = true
-        helpButton.isHidden = true
-        wordContainView.isHidden = false
-    }
-    
-    // MARK: - adMob method
-    
-    private func addBannerViewToView(_ bannerView: GADBannerView) {
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: view.safeAreaLayoutGuide,
-                                attribute: .bottom,
-                                multiplier: 1,
-                                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
-            ])
-    }
-
-    // MARK: - objc methods
-    
-    @objc
-    private func tapGroupSelection() {
-        let groupsViewController = GroupsViewController()
-        navigationController?.pushViewController(groupsViewController, animated: true)
-    }
-    
-    @objc
-    private func tapRandomSelection() {
-        let randomWordsViewController = GreekWordViewController(group: nil)
-        navigationController?.pushViewController(randomWordsViewController, animated: true)
-    }
-    
-    @objc
-    private func letterButtonTapped(_ sender: LetterButton) {
-        guard let tappedText = sender.title(for: .normal) else {
-            return
-        }
-        addTextToLabels(tappedText)
-        sender.isEnabled = false
-        sender.setTitleColor(.lightGray, for: .normal)
-        checkOkButton()
-    }
-    
-    @objc
-    private func tapHelpButton() {
-        articleLabel.text = article
-        articleLabel.isHidden = false
-        helpEnLabel.text = enWordLabel.text
-        helpEnLabel.isHidden = false
-    }
-    
-    @objc
-    private func tapBackButton() {
-        guard let lastLabel = labelArray.last(where: { $0.text != nil && !$0.text!.isEmpty }) else {
-            return
-        }
-        lastLabelValue = lastLabel.text
-        lastLabel.text?.removeLast()
-        for (index, button) in letterButtonStackView.arrangedSubviews.enumerated() {
-            guard let letterButton = button as? LetterButton else {
-                continue
-            }
-            if let titleColor = letterButton.titleColor(for: .normal), titleColor == .lightGray,
-               letterButton.title(for: .normal) == lastLabelValue {
-                letterButton.isEnabled = true
-                letterButton.setTitleColor(.blackDN, for: .normal)
-                break
-            }
-        }
-        checkOkButton()
-    }
-    
-    @objc
-    private func tapOkButton() {
-        let enteredWord = labelArray.compactMap { $0.text }.joined()
-        let isCorrect = enteredWord == greekWord
-        for label in labelArray {
-            if isCorrect {
-                label.layer.borderColor = UIColor.greenU.cgColor
-                articleLabel.text = article
-                articleLabel.isHidden = false
-                helpEnLabel.text = enWordLabel.text
-                helpEnLabel.isHidden = false
-                let dateString = dateFormatter.string(from: Date())
-                UserDefaults.standard.set(dateString, forKey: "lastPlayedDate")
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
-                    self.hideGame()
-                }
-            } else {
-                label.layer.borderColor = UIColor.redU.cgColor
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
-                    for label in self.labelArray {
-                        label.layer.borderWidth = 1.0
-                        label.layer.borderColor = UIColor.lightGray.cgColor
-                    }
-                    self.clearLabels()
-                    self.enableLetterButtons()
-                }
-            }
-        }
-    }
-    
-    @objc
-    private func appDidBecomeActive() {
-        let calendar = Calendar.current
-        let checkedDayOfMonth = calendar.component(.day, from: Date())
-        if checkedDayOfMonth != dayOfMonth {
-            setWordForCurrentDate()
-        } else {
-            return
-        }
-    }
 }
