@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6644FDE0-4353-4CEC-9FC1-0D7C56E13B15"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GreekWords/ViewControllers/GroupsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "showAlert()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6644FDE0-4353-4CEC-9FC1-0D7C56E13B15 - 807938484bcd186d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.GroupsViewController.showAlert() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "6644FDE0-4353-4CEC-9FC1-0D7C56E13B15 - 807938484bcd18e9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.GroupsViewController.showAlert() -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/ViewControllers/GroupsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "83"
-                  endingLineNumber = "83"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "49BAB46D-2536-4D2B-A860-FF8090E40F5D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -66,38 +18,6 @@
             endingLineNumber = "10"
             landmarkName = "loadVocabulary(url:handler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "49BAB46D-2536-4D2B-A860-FF8090E40F5D - c3806ba3bcd54f54"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.WordService.loadVocabulary(url: Foundation.URL, handler: (Swift.Result&lt;GreekWords.Vocabulary, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/Service/WordService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  uuid = "49BAB46D-2536-4D2B-A860-FF8090E40F5D - c3806ba3bcd54f35"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GreekWords.WordService.loadVocabulary(url: Foundation.URL, handler: (Swift.Result&lt;GreekWords.Vocabulary, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/Service/WordService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -114,38 +34,6 @@
             endingLineNumber = "33"
             landmarkName = "loadWordDay(handler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6302911B-C000-4991-8D8A-EDCE75495915 - a07a00f01c056d86"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in GreekWords.WordService.loadWordDay(handler: (Swift.Result&lt;GreekWords.VocabularyWordDay, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/Service/WordService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "164">
-               </Location>
-               <Location
-                  uuid = "6302911B-C000-4991-8D8A-EDCE75495915 - a07a00f01c056d86"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in GreekWords.WordService.loadWordDay(handler: (Swift.Result&lt;GreekWords.VocabularyWordDay, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "GreekWords"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Documents/work/Uff/GreekWords/GreekWords/Service/WordService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "200">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
