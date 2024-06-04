@@ -1,7 +1,6 @@
 import UIKit
 
 class GreekWordViewController: UIViewController {
-    
     var selectedGroup: VocabularyGroup?
     private let wordService = WordService()
     private var alertPresenter: AlertPresenter?
@@ -41,7 +40,7 @@ class GreekWordViewController: UIViewController {
         return label
     }()
     
-    private lazy var fisrtButton: OptionButton = {
+    private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
@@ -57,7 +56,7 @@ class GreekWordViewController: UIViewController {
     }()
     
     private lazy var buttonsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [fisrtButton, secondButton, thirdButton])
+        let stackView = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 20
@@ -127,7 +126,6 @@ class GreekWordViewController: UIViewController {
             }
         }
     }
-
     
     private func setRandomWord() {
         if let randomWord = currentRoundWords.popLast() {
@@ -142,7 +140,7 @@ class GreekWordViewController: UIViewController {
         let remainingWords = words.filter { $0.gr != correctWord }
         options.append(contentsOf: remainingWords.shuffled().prefix(2))
         options.shuffle()
-        fisrtButton.setTitle(options[0].en, for: .normal)
+        firstButton.setTitle(options[0].en, for: .normal)
         secondButton.setTitle(options[1].en, for: .normal)
         thirdButton.setTitle(options[2].en, for: .normal)
     }
@@ -155,19 +153,19 @@ class GreekWordViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-        fisrtButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        firstButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         secondButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         thirdButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
     private func blockButtons(){
-        fisrtButton.isEnabled = false
+        firstButton.isEnabled = false
         secondButton.isEnabled = false
         thirdButton.isEnabled = false
     }
     
     private func unblockButtons(){
-        fisrtButton.isEnabled = true
+        firstButton.isEnabled = true
         secondButton.isEnabled = true
         thirdButton.isEnabled = true
     }

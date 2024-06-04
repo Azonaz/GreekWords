@@ -2,7 +2,6 @@ import UIKit
 import GoogleMobileAds
 
 final class ChooseTypeViewController: UIViewController {
-
     var bannerView: GADBannerView!
     var gameManager: WordDayManager!
     
@@ -122,7 +121,7 @@ final class ChooseTypeViewController: UIViewController {
         return label
     }()
     
-    private lazy var fisrtButton: OptionButton = {
+    private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         button.setTitle("Random selection", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
@@ -139,7 +138,7 @@ final class ChooseTypeViewController: UIViewController {
     }()
     
     private lazy var buttonsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [fisrtButton, secondButton])
+        let stackView = UIStackView(arrangedSubviews: [firstButton, secondButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 20
@@ -164,7 +163,7 @@ final class ChooseTypeViewController: UIViewController {
         }
     }()
     
-    private lazy var emodjiImageView: UIImageView = {
+    private lazy var emojiImageView: UIImageView = {
         let imageView = UIImageView()
         if let image = self.image {
             imageView.image = image
@@ -222,7 +221,6 @@ final class ChooseTypeViewController: UIViewController {
     }
 
     // MARK: - objc methods
-    
     @objc private func tapGroupSelection() {
         let groupsViewController = GroupsViewController()
         navigationController?.pushViewController(groupsViewController, animated: true)
@@ -255,16 +253,14 @@ final class ChooseTypeViewController: UIViewController {
 }
 
 // MARK: - Creating UI
-
 extension ChooseTypeViewController {
-    
     private func setupView() {
         view.backgroundColor = UIColor(resource: .greyDN)
         navigationItem.title = "Greek Words A1"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         navigationItem.hidesBackButton = true
-        [buttonsStackView, titleLabel, emodjiImageView, wordContainView].forEach {
+        [buttonsStackView, titleLabel, emojiImageView, wordContainView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -275,10 +271,10 @@ extension ChooseTypeViewController {
             buttonsStackView.heightAnchor.constraint(equalToConstant: 150),
             titleLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 60),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emodjiImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            emodjiImageView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -20),
-            emodjiImageView.heightAnchor.constraint(equalToConstant: 50),
-            emodjiImageView.widthAnchor.constraint(equalToConstant: 50),
+            emojiImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            emojiImageView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -20),
+            emojiImageView.heightAnchor.constraint(equalToConstant: 50),
+            emojiImageView.widthAnchor.constraint(equalToConstant: 50),
             wordContainView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             wordContainView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             wordContainView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
@@ -337,5 +333,4 @@ extension ChooseTypeViewController {
             helpEnLabel.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: 5)
         ])
     }
-    
 }

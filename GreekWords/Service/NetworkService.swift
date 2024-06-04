@@ -1,7 +1,6 @@
 import Foundation
 
 final class NetworkService {
-    
     private enum NetworkError: Error {
         case codeError
     }

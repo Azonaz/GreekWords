@@ -1,7 +1,6 @@
 import UIKit
 
 final class WordDayManager {
-    
     private var viewController: ChooseTypeViewController
     private let wordService = WordService()
     private var article = ""
