@@ -48,7 +48,9 @@ final class WordDayManager {
     private func processWordDay(_ originalWord: String) {
         let components = originalWord.components(separatedBy: " ")
         var shuffledDayWord = ""
-        if let firstPart = components.first, let secondPart = components.last {
+        if components.count > 1 {
+            let firstPart = components.dropLast().joined(separator: " ")
+            let secondPart = components.last!
             let shuffledCharacters = secondPart.shuffled()
             shuffledDayWord = String(shuffledCharacters)
             article = firstPart
@@ -56,6 +58,7 @@ final class WordDayManager {
         } else {
             let shuffledCharacters = originalWord.shuffled()
             shuffledDayWord = String(shuffledCharacters)
+            article = ""
             greekWord = originalWord
         }
         addLetterStackView(shuffledDayWord)
