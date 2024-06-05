@@ -6,22 +6,12 @@ final class ChooseTypeViewController: UIViewController {
     var gameManager: WordDayManager!
     
     lazy var grWordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular))
         return label
     }()
     
     lazy var enWordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.italicSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel.customLabel(font: .italicSystemFont(ofSize: 20))
         return label
     }()
     
@@ -102,21 +92,15 @@ final class ChooseTypeViewController: UIViewController {
     }()
     
     lazy var articleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = .clear
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
+                                        backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
     }()
     
     lazy var helpEnLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = .clear
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
+                                        backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
     }()
@@ -146,12 +130,8 @@ final class ChooseTypeViewController: UIViewController {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = .clear
-        label.textAlignment = .center
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .semibold), backgroundColor: .clear)
         label.text = "Word of the day"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
     
@@ -247,7 +227,9 @@ final class ChooseTypeViewController: UIViewController {
         let calendar = Calendar.current
         let checkedDayOfMonth = calendar.component(.day, from: Date())
         if checkedDayOfMonth != gameManager.dayOfMonth {
-            gameManager.setWordForCurrentDate()
+            articleLabel.isHidden = true
+            helpEnLabel.isHidden = true
+            viewDidLoad()
         }
     }
 }

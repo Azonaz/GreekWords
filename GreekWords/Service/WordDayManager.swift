@@ -3,8 +3,8 @@ import UIKit
 final class WordDayManager {
     private var viewController: ChooseTypeViewController
     private let wordService = WordService()
-    private var article = ""
-    private var greekWord = ""
+    private(set) var article = ""
+    private(set) var greekWord = ""
     private var labelArray: [UILabel] = []
     private var lastLabelValue: String?
     private(set) var dayOfMonth: Int = 0

@@ -12,11 +12,7 @@ class GreekWordViewController: UIViewController {
     private var correctAnswers = 0
     
     private lazy var wordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 26, weight: .bold))
         label.numberOfLines = 0
         label.layer.cornerRadius = 16
         label.layer.masksToBounds = true
@@ -24,19 +20,13 @@ class GreekWordViewController: UIViewController {
     }()
     
     private lazy var infoLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular), backgroundColor: .clear)
         label.text = "Select correct option"
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .greyDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
     private lazy var countLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular), backgroundColor: .clear)
         return label
     }()
     
