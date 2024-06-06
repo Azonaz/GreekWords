@@ -14,6 +14,8 @@ final class GroupsViewController: UIViewController {
         tableView.layer.masksToBounds = true
         tableView.rowHeight = 50
         tableView.isScrollEnabled = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
