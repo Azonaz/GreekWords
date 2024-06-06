@@ -14,6 +14,8 @@ final class GroupsViewController: UIViewController {
         tableView.layer.masksToBounds = true
         tableView.rowHeight = 50
         tableView.isScrollEnabled = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
@@ -35,6 +37,14 @@ final class GroupsViewController: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         loadGroups()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let indexPath = selectedIndexPath {
+            groupTableView.deselectRow(at: indexPath, animated: true)
+            selectedIndexPath = nil
+        }
     }
     
     private func setupView() {
@@ -101,17 +111,18 @@ extension GroupsViewController: UITableViewDataSource {
         let group = groups[indexPath.row]
         let isFirstRow = indexPath.row == 0
         let isLastRow = indexPath.row == groups.count - 1
-        let isSelected = indexPath == selectedIndexPath
-        groupCell.configure(with: group.name, isFirstRow: isFirstRow, isLastRow: isLastRow, isSelected: isSelected)
+        groupCell.configure(with: group.name, isFirstRow: isFirstRow, isLastRow: isLastRow)
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = .selectDN
+        groupCell.selectedBackgroundView = selectedBackgroundView
         return groupCell
     }
 }
 
 extension GroupsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndexPath.flatMap { tableView.cellForRow(at: $0) }?.accessoryType = .none
         selectedIndexPath = indexPath
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         tapGroup(groups[indexPath.row])
         dismiss(animated: true)
     }

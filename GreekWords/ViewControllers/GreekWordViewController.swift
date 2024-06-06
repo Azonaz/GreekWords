@@ -1,7 +1,6 @@
 import UIKit
 
 class GreekWordViewController: UIViewController {
-    
     var selectedGroup: VocabularyGroup?
     private let wordService = WordService()
     private var alertPresenter: AlertPresenter?
@@ -13,11 +12,7 @@ class GreekWordViewController: UIViewController {
     private var correctAnswers = 0
     
     private lazy var wordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .whiteDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 26, weight: .bold))
         label.numberOfLines = 0
         label.layer.cornerRadius = 16
         label.layer.masksToBounds = true
@@ -25,23 +20,17 @@ class GreekWordViewController: UIViewController {
     }()
     
     private lazy var infoLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular), backgroundColor: .clear)
         label.text = "Select correct option"
-        label.textColor = UIColor(resource: .blackDN)
-        label.backgroundColor = UIColor(resource: .greyDN)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
     private lazy var countLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(resource: .blackDN)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular), backgroundColor: .clear)
         return label
     }()
     
-    private lazy var fisrtButton: OptionButton = {
+    private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
@@ -57,7 +46,7 @@ class GreekWordViewController: UIViewController {
     }()
     
     private lazy var buttonsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [fisrtButton, secondButton, thirdButton])
+        let stackView = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 20
@@ -127,7 +116,6 @@ class GreekWordViewController: UIViewController {
             }
         }
     }
-
     
     private func setRandomWord() {
         if let randomWord = currentRoundWords.popLast() {
@@ -142,7 +130,7 @@ class GreekWordViewController: UIViewController {
         let remainingWords = words.filter { $0.gr != correctWord }
         options.append(contentsOf: remainingWords.shuffled().prefix(2))
         options.shuffle()
-        fisrtButton.setTitle(options[0].en, for: .normal)
+        firstButton.setTitle(options[0].en, for: .normal)
         secondButton.setTitle(options[1].en, for: .normal)
         thirdButton.setTitle(options[2].en, for: .normal)
     }
@@ -155,19 +143,19 @@ class GreekWordViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-        fisrtButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        firstButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         secondButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         thirdButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
     private func blockButtons(){
-        fisrtButton.isEnabled = false
+        firstButton.isEnabled = false
         secondButton.isEnabled = false
         thirdButton.isEnabled = false
     }
     
     private func unblockButtons(){
-        fisrtButton.isEnabled = true
+        firstButton.isEnabled = true
         secondButton.isEnabled = true
         thirdButton.isEnabled = true
     }

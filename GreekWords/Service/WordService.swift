@@ -1,7 +1,6 @@
 import Foundation
 
 final class WordService {
-    
     private let service = NetworkService()
     private var vocabulary: Vocabulary?
     private (set) var dictionaryUrl = "https://find-friends-team.ru/words-gr-a1.json"
