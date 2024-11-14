@@ -3,8 +3,8 @@ import Foundation
 final class WordService {
     private let service = NetworkService()
     private var vocabulary: Vocabulary?
-    private (set) var dictionaryUrl = "https://find-friends-team.ru/words-gr-a1.json"
-    private (set) var wordsDayUrl = "https://find-friends-team.ru/words-gr-day.json"
+    private(set) var dictionaryUrl = "https://azonaz.github.io/words-gr-a1.json"
+    private(set) var wordsDayUrl = "https://azonaz.github.io/word-day-a2.json"
     
     func loadVocabulary(url: URL, handler: @escaping (Result<Vocabulary, Error>) -> Void) {
         service.fetch(url: url) { result in

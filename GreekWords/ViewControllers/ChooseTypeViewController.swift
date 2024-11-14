@@ -227,9 +227,9 @@ final class ChooseTypeViewController: UIViewController {
         let calendar = Calendar.current
         let checkedDayOfMonth = calendar.component(.day, from: Date())
         if checkedDayOfMonth != gameManager.dayOfMonth {
+            gameManager.setWordForCurrentDate()
             articleLabel.isHidden = true
             helpEnLabel.isHidden = true
-            viewDidLoad()
         }
     }
 }
@@ -237,7 +237,7 @@ final class ChooseTypeViewController: UIViewController {
 // MARK: - Creating UI
 extension ChooseTypeViewController {
     private func setupView() {
-        view.backgroundColor = UIColor(resource: .greyDN)
+        view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Greek Words A1"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)

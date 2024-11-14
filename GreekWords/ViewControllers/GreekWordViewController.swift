@@ -65,7 +65,7 @@ class GreekWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(viewController: self)
-        view.backgroundColor = UIColor(resource: .greyDN)
+        view.backgroundColor = UIColor(resource: .grayDN)
         setupView()
         getWords {
             self.updateWord()

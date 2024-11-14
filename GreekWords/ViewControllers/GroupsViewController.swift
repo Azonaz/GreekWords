@@ -48,7 +48,7 @@ final class GroupsViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = UIColor(resource: .greyDN)
+        view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Choose a group of words"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         [activityIndicator, groupTableView].forEach {

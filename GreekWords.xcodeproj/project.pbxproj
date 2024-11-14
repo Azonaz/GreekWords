@@ -24,6 +24,7 @@
 		84B42B382B1DD0E200C08F31 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B372B1DD0E200C08F31 /* Words.swift */; };
 		84B42B3D2B1E101F00C08F31 /* OptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B42B3C2B1E101F00C08F31 /* OptionButton.swift */; };
 		84DAFD4D2B7625DA008C6B10 /* ChooseTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */; };
+		84DCEEE52CE4EDEF004BE65F /* InfoPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCEEE42CE4EDEF004BE65F /* InfoPageViewController.swift */; };
 		84DFF2572B209BB80028553C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2562B209BB80028553C /* AlertPresenter.swift */; };
 		84DFF2592B209BF50028553C /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFF2582B209BF50028553C /* AlertModel.swift */; };
 		84E90CB12C107BFC00E47C21 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E90CB02C107BFC00E47C21 /* UILabel+Extensions.swift */; };
@@ -51,6 +52,7 @@
 		84B42B372B1DD0E200C08F31 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		84B42B3C2B1E101F00C08F31 /* OptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButton.swift; sourceTree = "<group>"; };
 		84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTypeViewController.swift; sourceTree = "<group>"; };
+		84DCEEE42CE4EDEF004BE65F /* InfoPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPageViewController.swift; sourceTree = "<group>"; };
 		84DFF2562B209BB80028553C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		84DFF2582B209BF50028553C /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		84E90CB02C107BFC00E47C21 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		845598332B1F194B0092A567 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84DCEEE42CE4EDEF004BE65F /* InfoPageViewController.swift */,
 				84DAFD4C2B7625DA008C6B10 /* ChooseTypeViewController.swift */,
 				8455982F2B1F16120092A567 /* GroupsViewController.swift */,
 				845598312B1F18C60092A567 /* CellTableView.swift */,
@@ -290,6 +293,7 @@
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
 				84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */,
 				84E90CB12C107BFC00E47C21 /* UILabel+Extensions.swift in Sources */,
+				84DCEEE52CE4EDEF004BE65F /* InfoPageViewController.swift in Sources */,
 				84DFF2592B209BF50028553C /* AlertModel.swift in Sources */,
 				8464042E2B91B4A800686B37 /* WordDayManager.swift in Sources */,
 				84B42B382B1DD0E200C08F31 /* Words.swift in Sources */,
