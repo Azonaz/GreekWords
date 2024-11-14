@@ -1,12 +1,12 @@
 import UIKit
 
 final class GroupsViewController: UIViewController {
-    
+
     var selectedIndexPath: IndexPath?
     private let wordService = WordService()
     private var groups: [VocabularyGroup] = []
     private var alertPresenter: AlertPresenter?
-    
+
     private lazy var groupTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(resource: .whiteDN)
@@ -21,7 +21,7 @@ final class GroupsViewController: UIViewController {
         tableView.register(CellTableView.self, forCellReuseIdentifier: CellTableView.reuseIdentifier)
         return tableView
     }()
-    
+
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .medium
@@ -29,7 +29,7 @@ final class GroupsViewController: UIViewController {
         activityIndicator.color = .whiteDN
         return activityIndicator
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(viewController: self)
@@ -38,7 +38,7 @@ final class GroupsViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         loadGroups()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let indexPath = selectedIndexPath {
@@ -46,11 +46,12 @@ final class GroupsViewController: UIViewController {
             selectedIndexPath = nil
         }
     }
-    
+
     private func setupView() {
         view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Choose a group of words"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        navigationController?.navigationBar.titleTextAttributes =
+        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         [activityIndicator, groupTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -64,7 +65,7 @@ final class GroupsViewController: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
+
     private func loadGroups() {
         wordService.getGroups { [weak self] result in
             guard let self = self else { return }
@@ -75,19 +76,19 @@ final class GroupsViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.groupTableView.reloadData()
                 }
-            case .failure(_):
+            case .failure:
                 DispatchQueue.main.async {
                     self.showAlert()
                 }
             }
         }
     }
-    
+
     private func tapGroup(_ group: VocabularyGroup) {
         let greekWordViewController = GreekWordViewController(group: group)
         navigationController?.pushViewController(greekWordViewController, animated: true)
     }
-    
+
     private func showAlert() {
         let model = AlertModel(title: nil,
                                message: "Error data loading",
@@ -103,7 +104,7 @@ extension GroupsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         groups.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellTableView.reuseIdentifier, for: indexPath)
         cell.tintColor = UIColor(resource: .blackDN)
@@ -126,7 +127,7 @@ extension GroupsViewController: UITableViewDelegate {
         tapGroup(groups[indexPath.row])
         dismiss(animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: cell.bounds.size.width)

@@ -4,17 +4,17 @@ import GoogleMobileAds
 final class ChooseTypeViewController: UIViewController {
     var bannerView: GADBannerView!
     var gameManager: WordDayManager!
-    
+
     lazy var grWordLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular))
         return label
     }()
-    
+
     lazy var enWordLabel: UILabel = {
         let label = UILabel.customLabel(font: .italicSystemFont(ofSize: 20))
         return label
     }()
-    
+
     lazy var wordStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [grWordLabel, enWordLabel])
         stackView.axis = .vertical
@@ -23,19 +23,19 @@ final class ChooseTypeViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     lazy var wordContainView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .whiteDN)
         view.layer.cornerRadius = 16
         return view
     }()
-    
+
     lazy var letterLabel: WordLabel = {
         let label = WordLabel()
         return label
     }()
-    
+
     lazy var letterStackView: UIStackView = {
         let letterStackView = UIStackView()
         letterStackView.axis = .horizontal
@@ -43,12 +43,12 @@ final class ChooseTypeViewController: UIViewController {
         letterStackView.spacing = 3
         return letterStackView
     }()
-    
+
     lazy var letterButton: LetterButton = {
         let button = LetterButton()
         return button
     }()
-    
+
     lazy var letterButtonStackView: UIStackView = {
         let buttonStackView = UIStackView()
         buttonStackView.axis = .horizontal
@@ -56,7 +56,7 @@ final class ChooseTypeViewController: UIViewController {
         buttonStackView.spacing = 2
         return buttonStackView
     }()
-    
+
     lazy var backButton: OptionButton = {
         let button = OptionButton()
         let deleteImage = UIImage(systemName: "delete.backward")?.withRenderingMode(.alwaysTemplate)
@@ -67,7 +67,7 @@ final class ChooseTypeViewController: UIViewController {
         button.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var helpButton: OptionButton = {
         let button = OptionButton()
         let helpImage = UIImage(systemName: "questionmark")?.withRenderingMode(.alwaysTemplate)
@@ -78,7 +78,7 @@ final class ChooseTypeViewController: UIViewController {
         button.addTarget(self, action: #selector(tapHelpButton), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var okButton: OptionButton = {
         let button = OptionButton()
         let okImage = UIImage(systemName: "checkmark")?.withRenderingMode(.alwaysTemplate)
@@ -90,21 +90,21 @@ final class ChooseTypeViewController: UIViewController {
         button.addTarget(self, action: #selector(tapOkButton), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var articleLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
                                         backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
     }()
-    
+
     lazy var helpEnLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
                                         backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
     }()
-    
+
     private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         button.setTitle("Random selection", for: .normal)
@@ -112,7 +112,7 @@ final class ChooseTypeViewController: UIViewController {
         button.addTarget(self, action: #selector(tapRandomSelection), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var secondButton: OptionButton = {
         let button = OptionButton()
         button.setTitle("Words by groups", for: .normal)
@@ -120,7 +120,7 @@ final class ChooseTypeViewController: UIViewController {
         button.addTarget(self, action: #selector(tapGroupSelection), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var buttonsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [firstButton, secondButton])
         stackView.axis = .vertical
@@ -128,13 +128,13 @@ final class ChooseTypeViewController: UIViewController {
         stackView.spacing = 20
         return stackView
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .semibold), backgroundColor: .clear)
         label.text = "Word of the day"
         return label
     }()
-    
+
     private lazy var image: UIImage? = {
         if let systemImage = UIImage(systemName: "pencil.and.scribble") {
             return systemImage.withRenderingMode(.alwaysTemplate)
@@ -142,7 +142,7 @@ final class ChooseTypeViewController: UIViewController {
             return UIImage(resource: .dayWordIcon).withRenderingMode(.alwaysTemplate)
         }
     }()
-    
+
     private lazy var emojiImageView: UIImageView = {
         let imageView = UIImageView()
         if let image = self.image {
@@ -152,7 +152,7 @@ final class ChooseTypeViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self,
@@ -160,7 +160,7 @@ final class ChooseTypeViewController: UIViewController {
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         gameManager = WordDayManager(viewController: self)
@@ -172,13 +172,12 @@ final class ChooseTypeViewController: UIViewController {
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - adMob method
-    
     private func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
@@ -205,24 +204,24 @@ final class ChooseTypeViewController: UIViewController {
         let groupsViewController = GroupsViewController()
         navigationController?.pushViewController(groupsViewController, animated: true)
     }
-    
+
     @objc private func tapRandomSelection() {
         let randomWordsViewController = GreekWordViewController(group: nil)
         navigationController?.pushViewController(randomWordsViewController, animated: true)
     }
-    
+
     @objc private func tapOkButton() {
         gameManager.tapOkButton()
     }
-    
+
     @objc private func tapBackButton() {
         gameManager.tapBackButton()
     }
-    
+
     @objc private func tapHelpButton() {
         gameManager.tapHelpButton()
     }
-    
+
     @objc private func appDidBecomeActive() {
         let calendar = Calendar.current
         let checkedDayOfMonth = calendar.component(.day, from: Date())
@@ -239,7 +238,8 @@ extension ChooseTypeViewController {
     private func setupView() {
         view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Greek Words A1"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        navigationController?.navigationBar.titleTextAttributes =
+        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         navigationItem.hidesBackButton = true
         [buttonsStackView, titleLabel, emojiImageView, wordContainView].forEach {
@@ -264,15 +264,15 @@ extension ChooseTypeViewController {
         ])
         createWordContainView()
     }
-    
+
     private func createWordContainView() {
         wordContainView.addSubview(wordStackView)
         NSLayoutConstraint.activate([
             wordStackView.centerYAnchor.constraint(equalTo: wordContainView.centerYAnchor),
-            wordStackView.centerXAnchor.constraint(equalTo: wordContainView.centerXAnchor),
+            wordStackView.centerXAnchor.constraint(equalTo: wordContainView.centerXAnchor)
         ])
     }
-    
+
     func createLabelView () {
         [letterStackView, backButton, helpButton, articleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -295,7 +295,7 @@ extension ChooseTypeViewController {
             articleLabel.leadingAnchor.constraint(equalTo: letterStackView.leadingAnchor)
         ])
     }
-    
+
     func createButtonView() {
         letterButtonStackView.isUserInteractionEnabled = true
         [letterButtonStackView, okButton, helpEnLabel].forEach {

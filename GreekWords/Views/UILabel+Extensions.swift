@@ -1,7 +1,8 @@
 import UIKit
 
 extension UILabel {
-    static func customLabel(font: UIFont, backgroundColor: UIColor = .whiteDN, 
+
+    static func customLabel(font: UIFont, backgroundColor: UIColor = .whiteDN,
                             textAlignment: NSTextAlignment = .center) -> UILabel {
         let label = UILabel()
         label.font = font

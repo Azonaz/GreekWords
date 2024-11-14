@@ -1,7 +1,7 @@
 import UIKit
 
 final class InfoPageViewController: UIViewController {
-    
+
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage.logoA2
@@ -10,10 +10,11 @@ final class InfoPageViewController: UIViewController {
         imageView.alpha = 0.7
         return imageView
     }()
-    
+
     private lazy var infoLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular))
-        let text = "If you've already mastered Greek at the A1 level, take the next step! Download our new A2 app and keep building your Greek language skills."
+        let text = "If you've already mastered Greek at the A1 level, take the next step! " +
+                   "Download our new A2 app and keep building your Greek language skills."
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         let attributedText = NSAttributedString(
@@ -31,7 +32,7 @@ final class InfoPageViewController: UIViewController {
         label.backgroundColor = .clear
         return label
     }()
-    
+
     private lazy var closeButton: OptionButton = {
         let button = OptionButton()
         let closeImage = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
@@ -41,7 +42,7 @@ final class InfoPageViewController: UIViewController {
         button.addTarget(self, action: #selector(tapCloseButton), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var goA2Button: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .logoAppSt), for: .normal)
@@ -50,19 +51,18 @@ final class InfoPageViewController: UIViewController {
         button.addTarget(self, action: #selector(tapGoA2Button), for: .touchUpInside)
         return button
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .grayDN)
         setupUI()
     }
-    
+
     private func setupUI() {
         [logoImageView, infoLabel, closeButton, goA2Button].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-        
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80),
@@ -81,7 +81,7 @@ final class InfoPageViewController: UIViewController {
             goA2Button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
         ])
     }
-    
+
     @objc private func tapCloseButton() {
         UserDefaults.standard.set(true, forKey: "didShowInfoScreen")
         let chooseTypeViewController = ChooseTypeViewController()
@@ -92,7 +92,7 @@ final class InfoPageViewController: UIViewController {
             }, completion: nil)
         }
     }
-    
+
     @objc private func tapGoA2Button() {
         if let url = URL(string: "https://apps.apple.com/cy/app/greek-words-a2/id6736978135") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

@@ -24,4 +24,3 @@ class WordLabel: UILabel {
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
-

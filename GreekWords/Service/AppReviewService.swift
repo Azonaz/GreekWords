@@ -3,16 +3,16 @@ import StoreKit
 
 final class AppReviewService {
     static let shared = AppReviewService()
-    
+
     func checkAndRequestReview() {
         let userDefaults = UserDefaults.standard
         let currentDate = Date()
-        
+
         if userDefaults.object(forKey: "askReviewAfter") == nil {
             userDefaults.set(Calendar.current.date(byAdding: .day, value: 1, to: currentDate),
                              forKey: "askReviewAfter")
         }
-        
+
         if let askReviewAfter = userDefaults.object(forKey: "askReviewAfter") as? Date,
            currentDate >= askReviewAfter {
             if let windowScene = UIApplication.shared.connectedScenes

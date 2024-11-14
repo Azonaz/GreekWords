@@ -10,7 +10,7 @@ class GreekWordViewController: UIViewController {
     private var correctWord: Word?
     private var questionsAsked = 0
     private var correctAnswers = 0
-    
+
     private lazy var wordLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 26, weight: .bold))
         label.numberOfLines = 0
@@ -18,33 +18,33 @@ class GreekWordViewController: UIViewController {
         label.layer.masksToBounds = true
         return label
     }()
-    
+
     private lazy var infoLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular), backgroundColor: .clear)
         label.text = "Select correct option"
         return label
     }()
-    
+
     private lazy var countLabel: UILabel = {
         let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular), backgroundColor: .clear)
         return label
     }()
-    
+
     private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
-    
+
     private lazy var secondButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
-    
+
     private lazy var thirdButton: OptionButton = {
         let button = OptionButton()
         return button
     }()
-    
+
     private lazy var buttonsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton])
         stackView.axis = .vertical
@@ -52,16 +52,16 @@ class GreekWordViewController: UIViewController {
         stackView.spacing = 20
         return stackView
     }()
-    
+
     init(group: VocabularyGroup?) {
         self.selectedGroup = group
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         alertPresenter = AlertPresenter(viewController: self)
@@ -72,14 +72,15 @@ class GreekWordViewController: UIViewController {
             self.setupButtonActions()
         }
     }
-    
+
     private func setupView() {
         if let selectedGroupName = selectedGroup?.name, !selectedGroupName.isEmpty {
             navigationItem.title = selectedGroupName
         } else {
             navigationItem.title = "Random words"
         }
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        navigationController?.navigationBar.titleTextAttributes =
+        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         [wordLabel, countLabel, infoLabel, buttonsStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -99,10 +100,9 @@ class GreekWordViewController: UIViewController {
             buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 200)
-            
         ])
     }
-    
+
     private func getWords(completion: @escaping () -> Void) {
         if let selectedGroup = selectedGroup {
             words = wordService.getWords(for: selectedGroup)
@@ -116,14 +116,14 @@ class GreekWordViewController: UIViewController {
             }
         }
     }
-    
+
     private func setRandomWord() {
         if let randomWord = currentRoundWords.popLast() {
             wordLabel.text = randomWord.gr
             correctWord = randomWord
         }
     }
-    
+
     private func setRandomValuesForWord() {
         guard let correctWord = correctWord?.gr else { return }
         var options = words.filter { $0.gr == correctWord }
@@ -134,32 +134,32 @@ class GreekWordViewController: UIViewController {
         secondButton.setTitle(options[1].en, for: .normal)
         thirdButton.setTitle(options[2].en, for: .normal)
     }
-    
+
     private func updateWord() {
         setRandomWord()
         setRandomValuesForWord()
         questionsAsked += 1
         countLabel.text = "\(questionsAsked)/10"
     }
-    
+
     private func setupButtonActions() {
         firstButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         secondButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         thirdButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
-    
-    private func blockButtons(){
+
+    private func blockButtons() {
         firstButton.isEnabled = false
         secondButton.isEnabled = false
         thirdButton.isEnabled = false
     }
-    
-    private func unblockButtons(){
+
+    private func unblockButtons() {
         firstButton.isEnabled = true
         secondButton.isEnabled = true
         thirdButton.isEnabled = true
     }
-    
+
     private func updateButtonState(_ sender: UIButton, isCorrect: Bool) {
         blockButtons()
         sender.layer.borderWidth = 2
@@ -170,13 +170,12 @@ class GreekWordViewController: UIViewController {
             self.unblockButtons()
             if questionsAsked < 10 {
                 self.updateWord()
-            }
-            else {
+            } else {
                 self.showResultsAlert()
             }
         }
     }
-    
+
     private func showResultsAlert() {
         let model = AlertModel(title: nil,
                                message: "Your result: \(correctAnswers)/10.",
@@ -192,7 +191,7 @@ class GreekWordViewController: UIViewController {
         })
         alertPresenter?.showResultAlert(with: model)
     }
-    
+
     private func resetGame() {
         questionsAsked = 0
         correctAnswers = 0
@@ -200,9 +199,8 @@ class GreekWordViewController: UIViewController {
             self.updateWord()
         }
     }
-    
-    @objc
-    private func buttonTapped(_ sender: UIButton) {
+
+    @objc private func buttonTapped(_ sender: UIButton) {
         if let buttonText = sender.titleLabel?.text, let correctWord = correctWord?.en {
             let isCorrect = buttonText == correctWord
             if isCorrect {

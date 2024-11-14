@@ -2,7 +2,7 @@ import UIKit
 
 final class CellTableView: UITableViewCell {
     static let reuseIdentifier = "cellTableView"
-    
+
     func configure(with title: String, isFirstRow: Bool, isLastRow: Bool) {
         textLabel?.text = title
         textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)

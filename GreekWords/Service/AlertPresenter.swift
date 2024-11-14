@@ -2,11 +2,11 @@ import UIKit
 
 final class AlertPresenter {
     weak var viewController: UIViewController?
-    
+
     init(viewController: UIViewController?) {
         self.viewController = viewController
     }
-    
+
     func showResultAlert(with model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,

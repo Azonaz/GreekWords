@@ -8,17 +8,17 @@ final class WordDayManager {
     private var labelArray: [UILabel] = []
     private var lastLabelValue: String?
     private(set) var dayOfMonth: Int = 0
-    
+
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
-    
+
     init(viewController: ChooseTypeViewController) {
         self.viewController = viewController
     }
-    
+
     func setWordForCurrentDate() {
         let calendar = Calendar.current
         dayOfMonth = calendar.component(.day, from: Date())
@@ -44,7 +44,7 @@ final class WordDayManager {
             }
         }
     }
-    
+
     private func processWordDay(_ originalWord: String) {
         let components = originalWord.components(separatedBy: " ")
         var shuffledDayWord = ""
@@ -64,7 +64,7 @@ final class WordDayManager {
         addLetterStackView(shuffledDayWord)
         addLetterButtonStackView(shuffledDayWord)
     }
-    
+
     private func addLetterStackView(_ shuffledDayWord: String) {
         viewController.letterStackView.subviews.forEach { $0.removeFromSuperview() }
         for _ in shuffledDayWord {
@@ -74,7 +74,7 @@ final class WordDayManager {
         }
         viewController.createLabelView()
     }
-    
+
     private func addLetterButtonStackView(_ shuffledDayWord: String) {
         viewController.letterButtonStackView.subviews.forEach { $0.removeFromSuperview() }
         for char in shuffledDayWord {
@@ -85,7 +85,7 @@ final class WordDayManager {
         }
         viewController.createButtonView()
     }
-    
+
     private func addTextToLabels(_ text: String) {
         guard let nextLabel = self.labelArray.first(where: { $0.text == "" }) else {
             return
@@ -93,17 +93,17 @@ final class WordDayManager {
         nextLabel.text = text
         viewController.view.layoutIfNeeded()
     }
-    
+
     private func checkOkButton() {
         viewController.okButton.isEnabled = !labelArray.contains { $0.text == "" }
     }
-    
+
     private func clearLabels() {
         for label in labelArray {
             label.text = ""
         }
     }
-    
+
     private func enableLetterButtons() {
         for button in viewController.letterButtonStackView.arrangedSubviews {
             guard let letterButton = button as? LetterButton else {
@@ -113,7 +113,7 @@ final class WordDayManager {
             letterButton.setTitleColor(.blackDN, for: .normal)
         }
     }
-    
+
     private func hideGame() {
         viewController.letterStackView.isHidden = true
         viewController.letterButtonStackView.isHidden = true
@@ -124,21 +124,21 @@ final class WordDayManager {
         viewController.helpButton.isHidden = true
         viewController.wordContainView.isHidden = false
     }
-    
+
     func tapHelpButton() {
         viewController.articleLabel.text = article
         viewController.articleLabel.isHidden = false
         viewController.helpEnLabel.text = viewController.enWordLabel.text
         viewController.helpEnLabel.isHidden = false
     }
-    
+
     func tapBackButton() {
         guard let lastLabel = labelArray.last(where: { $0.text != nil && !$0.text!.isEmpty }) else {
             return
         }
         lastLabelValue = lastLabel.text
         lastLabel.text?.removeLast()
-        for (_, button) in viewController.letterButtonStackView.arrangedSubviews.enumerated() {
+        for button in viewController.letterButtonStackView.arrangedSubviews {
             guard let letterButton = button as? LetterButton else {
                 continue
             }
@@ -151,7 +151,7 @@ final class WordDayManager {
         }
         checkOkButton()
     }
-    
+
     func tapOkButton() {
         let enteredWord = labelArray.compactMap { $0.text }.joined()
         let isCorrect = enteredWord == greekWord
@@ -161,12 +161,12 @@ final class WordDayManager {
                 tapHelpButton()
                 let dateString = dateFormatter.string(from: Date())
                 UserDefaults.standard.set(dateString, forKey: "lastPlayedDate")
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                     self.hideGame()
                 }
             } else {
                 label.layer.borderColor = UIColor.redU.cgColor
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                     for label in self.labelArray {
                         label.layer.borderWidth = 1.0
                         label.layer.borderColor = UIColor.lightGray.cgColor
@@ -177,7 +177,7 @@ final class WordDayManager {
             }
         }
     }
-    
+
     @objc private func letterButtonTapped(_ sender: LetterButton) {
         guard let tappedText = sender.title(for: .normal) else {
             return
