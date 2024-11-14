@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		266367CB96DFC05A3C162DC0 /* Pods_GreekWords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6733171F95817C97DF301397 /* Pods_GreekWords.framework */; };
+		8440E8472CE633D3008CF962 /* AppReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440E8462CE633D3008CF962 /* AppReviewService.swift */; };
 		8455982E2B1F15A60092A567 /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982D2B1F15A60092A567 /* WordService.swift */; };
 		845598302B1F16120092A567 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455982F2B1F16120092A567 /* GroupsViewController.swift */; };
 		845598322B1F18C60092A567 /* CellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845598312B1F18C60092A567 /* CellTableView.swift */; };
@@ -34,6 +35,7 @@
 		381702026782DC1308885D5E /* Pods-GreekWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GreekWords.release.xcconfig"; path = "Target Support Files/Pods-GreekWords/Pods-GreekWords.release.xcconfig"; sourceTree = "<group>"; };
 		4950AA062976F71594D6F98E /* Pods-GreekWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GreekWords.debug.xcconfig"; path = "Target Support Files/Pods-GreekWords/Pods-GreekWords.debug.xcconfig"; sourceTree = "<group>"; };
 		6733171F95817C97DF301397 /* Pods_GreekWords.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GreekWords.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8440E8462CE633D3008CF962 /* AppReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewService.swift; sourceTree = "<group>"; };
 		8455982D2B1F15A60092A567 /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		8455982F2B1F16120092A567 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		845598312B1F18C60092A567 /* CellTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTableView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				8455982D2B1F15A60092A567 /* WordService.swift */,
 				84DFF2562B209BB80028553C /* AlertPresenter.swift */,
 				8464042D2B91B4A800686B37 /* WordDayManager.swift */,
+				8440E8462CE633D3008CF962 /* AppReviewService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				84B42B182B1DBF4400C08F31 /* SceneDelegate.swift in Sources */,
 				84B42B352B1DD04800C08F31 /* NetworkService.swift in Sources */,
 				84E90CB12C107BFC00E47C21 /* UILabel+Extensions.swift in Sources */,
+				8440E8472CE633D3008CF962 /* AppReviewService.swift in Sources */,
 				84DCEEE52CE4EDEF004BE65F /* InfoPageViewController.swift in Sources */,
 				84DFF2592B209BF50028553C /* AlertModel.swift in Sources */,
 				8464042E2B91B4A800686B37 /* WordDayManager.swift in Sources */,
@@ -450,7 +454,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,7 +488,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

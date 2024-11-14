@@ -182,10 +182,12 @@ class GreekWordViewController: UIViewController {
                                message: "Your result: \(correctAnswers)/10.",
                                button1Text: "Play again",
                                completion1: { [weak self] in
+            AppReviewService.shared.checkAndRequestReview()
             self?.resetGame()
         },
                                button2Text: "Select group",
                                completion2: { [weak self] in
+            AppReviewService.shared.checkAndRequestReview()
             self?.navigationController?.popViewController(animated: true)
         })
         alertPresenter?.showResultAlert(with: model)
