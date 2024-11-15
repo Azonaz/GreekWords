@@ -6,12 +6,12 @@ final class ChooseTypeViewController: UIViewController {
     var gameManager: WordDayManager!
 
     lazy var grWordLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular))
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 32 : 20, weight: .regular))
         return label
     }()
 
     lazy var enWordLabel: UILabel = {
-        let label = UILabel.customLabel(font: .italicSystemFont(ofSize: 20))
+        let label = UILabel.customLabel(font: .italicSystemFont(ofSize: isPad ? 32 : 20))
         return label
     }()
 
@@ -40,7 +40,7 @@ final class ChooseTypeViewController: UIViewController {
         let letterStackView = UIStackView()
         letterStackView.axis = .horizontal
         letterStackView.distribution = .fillEqually
-        letterStackView.spacing = 3
+        letterStackView.spacing = isPad ? 6 : 3
         return letterStackView
     }()
 
@@ -53,7 +53,7 @@ final class ChooseTypeViewController: UIViewController {
         let buttonStackView = UIStackView()
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 2
+        buttonStackView.spacing = isPad ? 4 : 2
         return buttonStackView
     }()
 
@@ -63,7 +63,7 @@ final class ChooseTypeViewController: UIViewController {
         button.setImage(deleteImage, for: .normal)
         button.tintColor = .lightGray
         button.setTitle("  Delete", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 22 : 16, weight: .thin)
         button.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         return button
     }()
@@ -74,7 +74,7 @@ final class ChooseTypeViewController: UIViewController {
         button.setImage(helpImage, for: .normal)
         button.tintColor = .lightGray
         button.setTitle("  Help", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 22 : 16, weight: .thin)
         button.addTarget(self, action: #selector(tapHelpButton), for: .touchUpInside)
         return button
     }()
@@ -85,21 +85,21 @@ final class ChooseTypeViewController: UIViewController {
         button.setImage(okImage, for: .normal)
         button.tintColor = .lightGray
         button.setTitle("  OK", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 22 : 16, weight: .thin)
         button.titleLabel?.textColor = .lightGray
         button.addTarget(self, action: #selector(tapOkButton), for: .touchUpInside)
         return button
     }()
 
     lazy var articleLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 24 : 18, weight: .regular),
                                         backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
     }()
 
     lazy var helpEnLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular),
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 24 : 18, weight: .regular),
                                         backgroundColor: .clear, textAlignment: .left)
         label.isHidden = true
         return label
@@ -108,7 +108,7 @@ final class ChooseTypeViewController: UIViewController {
     private lazy var firstButton: OptionButton = {
         let button = OptionButton()
         button.setTitle("Random selection", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 32 : 20, weight: .medium)
         button.addTarget(self, action: #selector(tapRandomSelection), for: .touchUpInside)
         return button
     }()
@@ -116,7 +116,7 @@ final class ChooseTypeViewController: UIViewController {
     private lazy var secondButton: OptionButton = {
         let button = OptionButton()
         button.setTitle("Words by groups", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 32 : 20, weight: .medium)
         button.addTarget(self, action: #selector(tapGroupSelection), for: .touchUpInside)
         return button
     }()
@@ -130,7 +130,8 @@ final class ChooseTypeViewController: UIViewController {
     }()
 
     private lazy var titleLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .semibold), backgroundColor: .clear)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 32 : 20, weight: .semibold),
+                                        backgroundColor: .clear)
         label.text = "Word of the day"
         return label
     }()
@@ -238,8 +239,10 @@ extension ChooseTypeViewController {
     private func setupView() {
         view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Greek Words A1"
-        navigationController?.navigationBar.titleTextAttributes =
-        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: isPad ? 34 : 26, weight: .semibold)
+        ]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         navigationItem.hidesBackButton = true
         [buttonsStackView, titleLabel, emojiImageView, wordContainView].forEach {
@@ -247,20 +250,20 @@ extension ChooseTypeViewController {
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            buttonsStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 150),
-            titleLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 60),
+            buttonsStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: isPad ? 160 : 120),
+            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 120 : 60),
+            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -120 : -60),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: isPad ? 180 : 150),
+            titleLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: isPad ? 120 : 60),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emojiImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             emojiImageView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -20),
             emojiImageView.heightAnchor.constraint(equalToConstant: 50),
             emojiImageView.widthAnchor.constraint(equalToConstant: 50),
-            wordContainView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            wordContainView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            wordContainView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            wordContainView.heightAnchor.constraint(equalToConstant: 110)
+            wordContainView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: isPad ? 40 : 20),
+            wordContainView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 90 : 40),
+            wordContainView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -90 : -40),
+            wordContainView.heightAnchor.constraint(equalToConstant: isPad ? 150 : 110)
         ])
         createWordContainView()
     }
@@ -279,19 +282,19 @@ extension ChooseTypeViewController {
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            letterStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 45),
-            letterStackView.heightAnchor.constraint(equalToConstant: 44),
-            letterStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            letterStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            backButton.topAnchor.constraint(equalTo: letterStackView.bottomAnchor, constant: 10),
+            letterStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: isPad ? 55 : 45),
+            letterStackView.heightAnchor.constraint(equalToConstant: isPad ? 64 : 44),
+            letterStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 60 : 20),
+            letterStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -60 : -20),
+            backButton.topAnchor.constraint(equalTo: letterStackView.bottomAnchor, constant: isPad ? 20 : 10),
             backButton.trailingAnchor.constraint(equalTo: letterStackView.trailingAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: 100),
-            backButton.heightAnchor.constraint(equalToConstant: 30),
+            backButton.widthAnchor.constraint(equalToConstant: isPad ? 130 : 100),
+            backButton.heightAnchor.constraint(equalToConstant: isPad ? 40 : 30),
             helpButton.topAnchor.constraint(equalTo: backButton.topAnchor),
             helpButton.leadingAnchor.constraint(equalTo: letterStackView.leadingAnchor),
-            helpButton.widthAnchor.constraint(equalToConstant: 100),
-            helpButton.heightAnchor.constraint(equalToConstant: 30),
-            articleLabel.bottomAnchor.constraint(equalTo: letterStackView.topAnchor, constant: -5),
+            helpButton.widthAnchor.constraint(equalToConstant: isPad ? 130 : 100),
+            helpButton.heightAnchor.constraint(equalToConstant: isPad ? 40 : 30),
+            articleLabel.bottomAnchor.constraint(equalTo: letterStackView.topAnchor, constant: isPad ? -15 : -5),
             articleLabel.leadingAnchor.constraint(equalTo: letterStackView.leadingAnchor)
         ])
     }
@@ -303,16 +306,16 @@ extension ChooseTypeViewController {
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            letterButtonStackView.topAnchor.constraint(equalTo: helpButton.bottomAnchor, constant: 30),
-            letterButtonStackView.heightAnchor.constraint(equalToConstant: 45),
-            letterButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            letterButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            okButton.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: 20),
+            letterButtonStackView.topAnchor.constraint(equalTo: helpButton.bottomAnchor, constant: isPad ? 40 : 30),
+            letterButtonStackView.heightAnchor.constraint(equalToConstant: isPad ? 65 : 45),
+            letterButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 60 : 20),
+            letterButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -60 : -20),
+            okButton.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: isPad ? 30 : 20),
             okButton.trailingAnchor.constraint(equalTo: letterButtonStackView.trailingAnchor),
-            okButton.widthAnchor.constraint(equalToConstant: 100),
-            okButton.heightAnchor.constraint(equalToConstant: 30),
+            okButton.widthAnchor.constraint(equalToConstant: isPad ? 130 : 100),
+            okButton.heightAnchor.constraint(equalToConstant: isPad ? 40 : 30),
             helpEnLabel.leadingAnchor.constraint(equalTo: letterButtonStackView.leadingAnchor),
-            helpEnLabel.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: 5)
+            helpEnLabel.topAnchor.constraint(equalTo: letterButtonStackView.bottomAnchor, constant: isPad ? 15 : 5)
         ])
     }
 }

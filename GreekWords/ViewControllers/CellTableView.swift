@@ -5,7 +5,7 @@ final class CellTableView: UITableViewCell {
 
     func configure(with title: String, isFirstRow: Bool, isLastRow: Bool) {
         textLabel?.text = title
-        textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        textLabel?.font = UIFont.systemFont(ofSize: isPad ? 23 : 17, weight: .medium)
         textLabel?.textColor = UIColor(resource: .blackDN)
         backgroundColor = UIColor(resource: .whiteDN)
         layer.masksToBounds = true

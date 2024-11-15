@@ -1,5 +1,9 @@
 import UIKit
 
+var isPad: Bool {
+    return UIDevice.current.userInterfaceIdiom == .pad
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -17,6 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let infoPageViewController = InfoPageViewController()
             window.rootViewController = infoPageViewController
         }
+
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: 0),
+                                                                          for: .default)
 
         self.window = window
         window.makeKeyAndVisible()

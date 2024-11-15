@@ -14,7 +14,8 @@ class OptionButton: UIButton {
     private func setupButton() {
         setTitle("", for: .normal)
         setTitleColor(UIColor(resource: .blackDN), for: .normal)
-        layer.cornerRadius = 12
+        titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 26 : 20, weight: .regular)
+        layer.cornerRadius = isPad ? 13 : 12
         backgroundColor = .whiteDN
         translatesAutoresizingMaskIntoConstraints = false
     }

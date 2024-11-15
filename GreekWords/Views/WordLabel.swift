@@ -15,11 +15,11 @@ class WordLabel: UILabel {
         text = ""
         textColor = UIColor(resource: .blackDN)
         textAlignment = .center
-        font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        font = UIFont.systemFont(ofSize: isPad ? 26 : 18, weight: .regular)
         backgroundColor = .whiteDN
         layer.borderWidth = 1
         layer.borderColor = UIColor.lightGray.cgColor
-        layer.cornerRadius = 5
+        layer.cornerRadius = isPad ? 6 : 5
         layer.masksToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
     }

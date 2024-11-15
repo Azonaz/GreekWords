@@ -12,7 +12,7 @@ class GreekWordViewController: UIViewController {
     private var correctAnswers = 0
 
     private lazy var wordLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 26, weight: .bold))
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 30 : 26, weight: .bold))
         label.numberOfLines = 0
         label.layer.cornerRadius = 16
         label.layer.masksToBounds = true
@@ -20,13 +20,15 @@ class GreekWordViewController: UIViewController {
     }()
 
     private lazy var infoLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 20, weight: .regular), backgroundColor: .clear)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 24 : 20, weight: .regular),
+                                        backgroundColor: .clear)
         label.text = "Select correct option"
         return label
     }()
 
     private lazy var countLabel: UILabel = {
-        let label = UILabel.customLabel(font: .systemFont(ofSize: 18, weight: .regular), backgroundColor: .clear)
+        let label = UILabel.customLabel(font: .systemFont(ofSize: isPad ? 22 : 18, weight: .regular),
+                                        backgroundColor: .clear)
         return label
     }()
 
@@ -80,26 +82,27 @@ class GreekWordViewController: UIViewController {
             navigationItem.title = "Random words"
         }
         navigationController?.navigationBar.titleTextAttributes =
-        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN),
+         NSAttributedString.Key.font: UIFont.systemFont(ofSize: isPad ? 34 : 26, weight: .semibold)]
         navigationController?.navigationBar.tintColor = UIColor(resource: .blackDN)
         [wordLabel, countLabel, infoLabel, buttonsStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            wordLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            wordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            wordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            wordLabel.heightAnchor.constraint(equalToConstant: 150),
-            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
+            wordLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: isPad ? 250 : 150),
+            wordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 140 : 60),
+            wordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -140 : -60),
+            wordLabel.heightAnchor.constraint(equalToConstant: isPad ? 170 : 150),
+            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isPad ? 15 : 5),
+            countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -30 : -20),
+            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: isPad ? 50 : 30),
             infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            buttonsStackView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 30),
-            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 200)
+            buttonsStackView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: isPad ? 40 : 30),
+            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 140 : 60),
+            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -140 : -60),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: isPad ? 240 : 200)
         ])
     }
 

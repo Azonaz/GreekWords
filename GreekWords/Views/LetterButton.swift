@@ -14,8 +14,9 @@ class LetterButton: UIButton {
     private func setupButton() {
         setTitle("", for: .normal)
         setTitleColor(UIColor(resource: .blackDN), for: .normal)
+        titleLabel?.font = UIFont.systemFont(ofSize: isPad ? 26 : 18, weight: .regular)
         backgroundColor = .whiteDN
-        layer.cornerRadius = 3
+        layer.cornerRadius = isPad ? 4 : 3
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

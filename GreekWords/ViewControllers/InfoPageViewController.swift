@@ -22,7 +22,7 @@ final class InfoPageViewController: UIViewController {
             attributes: [
                 .paragraphStyle: paragraphStyle,
                 .kern: 1.2,
-                .font: UIFont.systemFont(ofSize: 24, weight: .regular),
+                .font: UIFont.systemFont(ofSize: isPad ? 30 : 24, weight: .regular),
                 .foregroundColor: UIColor.blackDN.withAlphaComponent(0.7)
             ]
         )
@@ -33,12 +33,15 @@ final class InfoPageViewController: UIViewController {
         return label
     }()
 
-    private lazy var closeButton: OptionButton = {
-        let button = OptionButton()
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
         let closeImage = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
         button.setImage(closeImage, for: .normal)
         button.tintColor = .blackDN.withAlphaComponent(0.7)
         button.backgroundColor = .clear
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
         button.addTarget(self, action: #selector(tapCloseButton), for: .touchUpInside)
         return button
     }()
@@ -46,7 +49,7 @@ final class InfoPageViewController: UIViewController {
     private lazy var goA2Button: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .logoAppSt), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFill
+        button.imageView?.contentMode = .scaleAspectFit
         button.alpha = 0.5
         button.addTarget(self, action: #selector(tapGoA2Button), for: .touchUpInside)
         return button
@@ -65,20 +68,20 @@ final class InfoPageViewController: UIViewController {
         }
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80),
-            logoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80),
+            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 180 : 80),
+            logoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -180 : -80),
             logoImageView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor),
-            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            infoLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 30),
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            closeButton.heightAnchor.constraint(equalToConstant: 50),
-            closeButton.widthAnchor.constraint(equalToConstant: 50),
-            goA2Button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80),
-            goA2Button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80),
-            goA2Button.heightAnchor.constraint(equalToConstant: 80),
-            goA2Button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
+            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 70 : 30),
+            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -70 : -30),
+            infoLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: isPad ? 70 : 30),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: isPad ? 60 : 60),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -40 : -40),
+            closeButton.heightAnchor.constraint(equalToConstant: isPad ? 30 : 20),
+            closeButton.widthAnchor.constraint(equalToConstant: isPad ? 30 : 20),
+            goA2Button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isPad ? 180 : 80),
+            goA2Button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isPad ? -180 : -80),
+            goA2Button.heightAnchor.constraint(equalToConstant: isPad ? 280 : 160),
+            goA2Button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: isPad ? -90 : -40)
         ])
     }
 

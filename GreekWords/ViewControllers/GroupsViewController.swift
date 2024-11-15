@@ -12,7 +12,7 @@ final class GroupsViewController: UIViewController {
         tableView.backgroundColor = UIColor(resource: .whiteDN)
         tableView.layer.cornerRadius = 16
         tableView.layer.masksToBounds = true
-        tableView.rowHeight = 50
+        tableView.rowHeight = isPad ? 70 : 50
         tableView.isScrollEnabled = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
@@ -51,16 +51,20 @@ final class GroupsViewController: UIViewController {
         view.backgroundColor = UIColor(resource: .grayDN)
         navigationItem.title = "Choose a group of words"
         navigationController?.navigationBar.titleTextAttributes =
-        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN)]
+        [NSAttributedString.Key.foregroundColor: UIColor(resource: .blackDN),
+         NSAttributedString.Key.font: UIFont.systemFont(ofSize: isPad ? 34 : 26, weight: .semibold)]
         [activityIndicator, groupTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            groupTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            groupTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            groupTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            groupTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            groupTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isPad ? 30 : 20),
+            groupTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                                                    constant: isPad ? 30 : 20),
+            groupTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                                     constant: isPad ? -30 : -20),
+            groupTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                   constant: isPad ? -30 : -20),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
