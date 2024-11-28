@@ -8,6 +8,7 @@ final class WordDayManager {
     private var labelArray: [UILabel] = []
     private var lastLabelValue: String?
     private(set) var dayOfMonth: Int = 0
+    private(set) var isWordGuessed: Bool = false
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -22,27 +23,41 @@ final class WordDayManager {
     func setWordForCurrentDate() {
         let calendar = Calendar.current
         dayOfMonth = calendar.component(.day, from: Date())
+        isWordGuessed = false
         wordService.loadWordDay { result in
             switch result {
             case .success(let vocabularyWordDay):
                 DispatchQueue.main.async {
-                    let validIndex = max(0, min(self.dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
-                    self.viewController.grWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].gr
-                    self.viewController.enWordLabel.text = vocabularyWordDay.vocabulary.words[validIndex].en
-                    if let lastPlayedDateString = UserDefaults.standard.string(forKey: "lastPlayedDate"),
-                       let lastPlayedDate = self.dateFormatter.date(from: lastPlayedDateString),
-                       calendar.isDateInToday(lastPlayedDate) {
-                        self.viewController.wordContainView.isHidden = false
-                    } else {
-                        self.viewController.wordContainView.isHidden = true
-                        self.processWordDay(vocabularyWordDay.vocabulary.words[validIndex].gr)
-                        self.checkOkButton()
-                    }
+                    self.updateWord(for: vocabularyWordDay)
                 }
             case .failure(let error):
                 print(error)
             }
         }
+    }
+
+    private func updateWord(for vocabularyWordDay: VocabularyWordDay) {
+        let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
+        let newGreekWord = vocabularyWordDay.vocabulary.words[validIndex].gr
+        let newEnglishWord = vocabularyWordDay.vocabulary.words[validIndex].en
+        greekWord = newGreekWord
+        article = ""
+        viewController.grWordLabel.text = newGreekWord
+        viewController.enWordLabel.text = newEnglishWord
+        if isWordPlayedToday() {
+            showGuessedWordState()
+        } else {
+            processWordDay(newGreekWord)
+            showActiveGameState()
+        }
+    }
+
+    private func isWordPlayedToday() -> Bool {
+        guard let lastPlayedDateString = UserDefaults.standard.string(forKey: "lastPlayedDate"),
+              let lastPlayedDate = dateFormatter.date(from: lastPlayedDateString) else {
+            return false
+        }
+        return Calendar.current.isDateInToday(lastPlayedDate)
     }
 
     private func processWordDay(_ originalWord: String) {
@@ -114,15 +129,31 @@ final class WordDayManager {
         }
     }
 
+    private func updateGameUI(isGameActive: Bool) {
+        viewController.letterStackView.isHidden = !isGameActive
+        viewController.letterButtonStackView.isHidden = !isGameActive
+        viewController.okButton.isHidden = !isGameActive
+        viewController.helpEnLabel.isHidden = isGameActive
+        viewController.articleLabel.isHidden = isGameActive
+        viewController.backButton.isHidden = !isGameActive
+        viewController.helpButton.isHidden = !isGameActive
+        viewController.helpEnLabel.isHidden = !isGameActive
+        viewController.wordContainView.isHidden = isGameActive
+    }
+
     private func hideGame() {
-        viewController.letterStackView.isHidden = true
-        viewController.letterButtonStackView.isHidden = true
-        viewController.okButton.isHidden = true
-        viewController.helpEnLabel.isHidden = true
-        viewController.articleLabel.isHidden = true
-        viewController.backButton.isHidden = true
-        viewController.helpButton.isHidden = true
-        viewController.wordContainView.isHidden = false
+        updateGameUI(isGameActive: false)
+    }
+
+    private func showGuessedWordState() {
+        updateGameUI(isGameActive: false)
+        self.isWordGuessed = true
+    }
+
+    private func showActiveGameState() {
+        updateGameUI(isGameActive: true)
+        self.isWordGuessed = false
+        self.checkOkButton()
     }
 
     func tapHelpButton() {
@@ -157,6 +188,7 @@ final class WordDayManager {
         let isCorrect = enteredWord == greekWord
         for label in labelArray {
             if isCorrect {
+                isWordGuessed = true
                 label.layer.borderColor = UIColor.greenU.cgColor
                 tapHelpButton()
                 let dateString = dateFormatter.string(from: Date())

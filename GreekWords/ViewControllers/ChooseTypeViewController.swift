@@ -226,7 +226,7 @@ final class ChooseTypeViewController: UIViewController {
     @objc private func appDidBecomeActive() {
         let calendar = Calendar.current
         let checkedDayOfMonth = calendar.component(.day, from: Date())
-        if checkedDayOfMonth != gameManager.dayOfMonth {
+        if checkedDayOfMonth != gameManager.dayOfMonth || gameManager.isWordGuessed {
             gameManager.setWordForCurrentDate()
             articleLabel.isHidden = true
             helpEnLabel.isHidden = true
