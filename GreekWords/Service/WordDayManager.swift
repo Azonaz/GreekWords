@@ -133,8 +133,8 @@ final class WordDayManager {
         viewController.letterStackView.isHidden = !isGameActive
         viewController.letterButtonStackView.isHidden = !isGameActive
         viewController.okButton.isHidden = !isGameActive
-        viewController.helpEnLabel.isHidden = !isGameActive
-        viewController.articleLabel.isHidden = !isGameActive
+        viewController.helpEnLabel.isHidden = true
+        viewController.articleLabel.isHidden = true
         viewController.backButton.isHidden = !isGameActive
         viewController.helpButton.isHidden = !isGameActive
         viewController.helpEnLabel.isHidden = !isGameActive
