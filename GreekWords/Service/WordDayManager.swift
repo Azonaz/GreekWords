@@ -28,6 +28,7 @@ final class WordDayManager {
             switch result {
             case .success(let vocabularyWordDay):
                 DispatchQueue.main.async {
+                    self.resetHelpLabels()
                     self.updateWord(for: vocabularyWordDay)
                 }
             case .failure(let error):
@@ -37,6 +38,7 @@ final class WordDayManager {
     }
 
     private func updateWord(for vocabularyWordDay: VocabularyWordDay) {
+        resetGame()
         let validIndex = max(0, min(dayOfMonth - 1, vocabularyWordDay.vocabulary.words.count - 1))
         let newGreekWord = vocabularyWordDay.vocabulary.words[validIndex].gr
         let newEnglishWord = vocabularyWordDay.vocabulary.words[validIndex].en
@@ -133,8 +135,6 @@ final class WordDayManager {
         viewController.letterStackView.isHidden = !isGameActive
         viewController.letterButtonStackView.isHidden = !isGameActive
         viewController.okButton.isHidden = !isGameActive
-        viewController.helpEnLabel.isHidden = true
-        viewController.articleLabel.isHidden = true
         viewController.backButton.isHidden = !isGameActive
         viewController.helpButton.isHidden = !isGameActive
         viewController.helpEnLabel.isHidden = !isGameActive
@@ -152,8 +152,16 @@ final class WordDayManager {
 
     private func showActiveGameState() {
         updateGameUI(isGameActive: true)
+        resetHelpLabels()
         self.isWordGuessed = false
         self.checkOkButton()
+    }
+
+    private func resetHelpLabels() {
+        viewController.helpEnLabel.isHidden = true
+        viewController.helpEnLabel.text = ""
+        viewController.articleLabel.isHidden = true
+        viewController.articleLabel.text = ""
     }
 
     func tapHelpButton() {
@@ -161,6 +169,14 @@ final class WordDayManager {
         viewController.articleLabel.isHidden = false
         viewController.helpEnLabel.text = viewController.enWordLabel.text
         viewController.helpEnLabel.isHidden = false
+    }
+
+    private func resetGame() {
+        viewController.letterStackView.subviews.forEach { $0.removeFromSuperview() }
+        viewController.letterButtonStackView.subviews.forEach { $0.removeFromSuperview() }
+        labelArray.removeAll()
+        enableLetterButtons()
+        resetHelpLabels()
     }
 
     func tapBackButton() {
