@@ -142,10 +142,12 @@ final class WordDayManager {
     }
 
     private func hideGame() {
+        resetHelpLabels()
         updateGameUI(isGameActive: false)
     }
 
     private func showGuessedWordState() {
+        resetHelpLabels()
         updateGameUI(isGameActive: false)
         self.isWordGuessed = true
     }
@@ -206,7 +208,6 @@ final class WordDayManager {
             if isCorrect {
                 isWordGuessed = true
                 label.layer.borderColor = UIColor.greenU.cgColor
-                tapHelpButton()
                 let dateString = dateFormatter.string(from: Date())
                 UserDefaults.standard.set(dateString, forKey: "lastPlayedDate")
                 Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
